@@ -1,4 +1,4 @@
-# Agenda de Luta
+# Calendário de Luta
 
 Site estático com o calendário de atividades do segundo turno. Para cada atividade, gera:
 
@@ -63,20 +63,22 @@ Tudo que costuma mudar fica em `js/config.js`:
 Outros textos:
 
 - Frase final da mensagem de WhatsApp: `CLOSING_LINE` em `js/whatsapp.js`.
-- Frase do rodapé do panfleto (quando não há contato/link): `FLYER_SLOGAN` em `js/flyer.js`.
+- Frase que fecha todo panfleto: `FLYER_SLOGAN` em `js/flyer.js`.
+- Estilos de panfleto: são 10, escolhidos no seletor da aba Panfleto (o site lembra o último usado). Cada estilo é uma função em `js/flyer.js` (lista `FLYER_STYLES`) com o visual em `css/flyers.css`.
 - Cores: variáveis no topo de `css/style.css`; cores dos tipos de atividade em `js/types.js`.
 
 ## Estrutura
 
 ```
 index.html
-css/style.css       estilos do site e do panfleto
+css/style.css       estilos do site
+css/flyers.css      os 10 estilos de panfleto
 fonts/              fontes Barlow (hospedadas no próprio site)
 js/config.js        configurações (planilha, nome, data da eleição)
 js/app.js           carrega a agenda e liga a interface
 js/line.js          a linha (visão principal)
 js/month.js         a visão de mês
-js/flyer.js         panfleto e exportação PNG
+js/flyer.js         estilos de panfleto e exportação PNG
 js/whatsapp.js      montador da mensagem de WhatsApp
 js/types.js         cores e etiquetas dos tipos de atividade
 js/icons.js         ícones

@@ -37,7 +37,7 @@ One place that shows the calendar of the movement's activities (panfletagens, fo
 ## Brand Commitments
 
 - Red is required and must stay the dominant color, but not overwhelming; the rest of the palette is open.
-- Name "Agenda de Luta" and slogan "Bora virar voto!" are placeholders until the movement provides official ones; keep them easy to swap.
+- Name: "Calendário de Luta" (chosen by the user), with a red calendar mark as its logo. The slogan "Bora virar voto!" is still a placeholder until the movement provides an official one; keep both easy to swap (`APP_NAME` in `js/config.js`, `FLYER_SLOGAN` in `js/flyer.js`).
 - No real party or candidate names in sample content.
 
 ## Evidence on Hand

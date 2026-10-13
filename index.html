@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1C1C1E">
-  <title>Agenda de Luta</title>
+  <title>Calendário de Luta</title>
   <meta name="description" content="A linha de atividades até o segundo turno — mande a mensagem ou o panfleto de cada uma pelo WhatsApp.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23E4002B%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%224%22/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='2' width='4' height='8' rx='2' fill='%23E4002B'/%3E%3Crect x='20' y='2' width='4' height='8' rx='2' fill='%23E4002B'/%3E%3Crect x='3' y='6' width='26' height='23' rx='4' fill='%23E4002B'/%3E%3Cg fill='%23fff'%3E%3Crect x='3' y='12' width='26' height='2.5'/%3E%3Crect x='7.5' y='17.5' width='4.5' height='3.5' rx='1'/%3E%3Crect x='13.75' y='17.5' width='4.5' height='3.5' rx='1'/%3E%3Crect x='20' y='17.5' width='4.5' height='3.5' rx='1'/%3E%3Crect x='7.5' y='23' width='4.5' height='3.5' rx='1'/%3E%3Crect x='13.75' y='23' width='4.5' height='3.5' rx='1'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="preload" href="fonts/barlow-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/barlow-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/flyers.css">
   <script defer src="js/vendor/html-to-image.js"></script>
   <script type="module" src="js/app.js"></script>
 </head>
@@ -17,8 +18,8 @@
   <header class="sign">
     <div class="sign-inner">
       <a class="brand" href="./">
-        <span class="brand-bullet" aria-hidden="true"></span>
-        <span class="brand-name" id="app-name">Agenda de Luta</span>
+        <span class="brand-mark" id="brand-mark"></span>
+        <span class="brand-name" id="app-name">Calendário de Luta</span>
       </a>
       <p class="countdown" id="countdown" hidden></p>
     </div>
@@ -75,6 +76,15 @@
         </section>
 
         <section class="panel" id="panel-flyer" role="tabpanel" aria-labelledby="seg-flyer" hidden>
+          <div class="style-picker">
+            <button type="button" class="icon-btn" id="style-prev" aria-label="Estilo anterior"></button>
+            <div class="style-select">
+              <label class="sr-only" for="style-select">Estilo do panfleto</label>
+              <select id="style-select"></select>
+              <span class="style-count" id="style-count" aria-hidden="true"></span>
+            </div>
+            <button type="button" class="icon-btn" id="style-next" aria-label="Próximo estilo"></button>
+          </div>
           <div class="flyer-frame" id="flyer-frame">
             <div class="flyer-scaler" id="flyer-scaler"></div>
           </div>

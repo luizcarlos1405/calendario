@@ -3,10 +3,10 @@ import { decodeCSV, parseCSV } from './csv.js';
 import { buildEvents, dateKey, daysBetween, formatLongDate, formatStationDate, formatTimeRange, parseDay, relativeDay } from './events.js';
 import { assignTypeColors, typeColor, typeTag } from './types.js';
 import { buildWhatsAppMessage, previewHtml, whatsAppShareUrl } from './whatsapp.js';
-import { FLYER_WIDTH, canShareFiles, downloadFlyer, flyerFilename, renderFlyer, shareFlyer } from './flyer.js';
+import { FLYER_STYLES, FLYER_WIDTH, canShareFiles, downloadFlyer, flyerFilename, renderFlyer, shareFlyer } from './flyer.js';
 import { renderLine } from './line.js';
 import { renderMonth } from './month.js';
-import { icon } from './icons.js';
+import { brandMark, icon } from './icons.js';
 
 const desktop = window.matchMedia('(min-width: 960px)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -325,9 +325,55 @@ function renderBench() {
   $('bubble').innerHTML = previewHtml(message);
   $('wa-link').href = whatsAppShareUrl(message);
 
-  $('flyer-scaler').replaceChildren(renderFlyer(ev));
+  renderFlyerPreview(ev);
   showPanel(activePanel);
 }
+
+// ---------- Flyer style picker ----------
+
+const STYLE_KEY = 'agenda.flyerStyle';
+let flyerStyle = FLYER_STYLES[0].id;
+try {
+  const saved = localStorage.getItem(STYLE_KEY);
+  if (FLYER_STYLES.some((s) => s.id === saved)) flyerStyle = saved;
+} catch {
+  // Storage unavailable (private mode): the default style is fine.
+}
+
+function renderFlyerPreview(ev = findEvent(state.selectedId)) {
+  if (!ev) return;
+  $('flyer-scaler').replaceChildren(renderFlyer(ev, flyerStyle));
+  const index = FLYER_STYLES.findIndex((s) => s.id === flyerStyle);
+  $('style-select').value = flyerStyle;
+  $('style-count').textContent = `${index + 1}/${FLYER_STYLES.length}`;
+}
+
+function setFlyerStyle(id) {
+  flyerStyle = id;
+  try {
+    localStorage.setItem(STYLE_KEY, id);
+  } catch {
+    // Not remembered; still applied for this visit.
+  }
+  renderFlyerPreview();
+}
+
+function stepFlyerStyle(delta) {
+  const index = FLYER_STYLES.findIndex((s) => s.id === flyerStyle);
+  setFlyerStyle(FLYER_STYLES[(index + delta + FLYER_STYLES.length) % FLYER_STYLES.length].id);
+}
+
+for (const style of FLYER_STYLES) {
+  const option = document.createElement('option');
+  option.value = style.id;
+  option.textContent = style.name;
+  $('style-select').append(option);
+}
+$('style-select').addEventListener('change', (e) => setFlyerStyle(e.target.value));
+$('style-prev').innerHTML = icon('left');
+$('style-next').innerHTML = icon('right');
+$('style-prev').addEventListener('click', () => stepFlyerStyle(-1));
+$('style-next').addEventListener('click', () => stepFlyerStyle(1));
 
 function typeTagFact(ev) {
   const row = document.createElement('div');
@@ -425,6 +471,7 @@ function wireTabs(selector, onPick) {
 }
 
 $('app-name').textContent = APP_NAME;
+$('brand-mark').innerHTML = brandMark();
 document.title = APP_NAME;
 
 wireTabs('.view-tabs [role=tab]', (tab) => {
@@ -475,10 +522,10 @@ async function withFlyer(button, busyLabel, action, doneLabel, reset) {
 }
 
 $('download-btn').addEventListener('click', () =>
-  withFlyer($('download-btn'), 'Gerando imagem…', (node, ev) => downloadFlyer(node, flyerFilename(ev)), 'Imagem baixada', resetDownload));
+  withFlyer($('download-btn'), 'Gerando imagem…', (node, ev) => downloadFlyer(node, flyerFilename(ev, flyerStyle)), 'Imagem baixada', resetDownload));
 
 $('share-btn').addEventListener('click', () =>
-  withFlyer($('share-btn'), 'Gerando imagem…', (node, ev) => shareFlyer(node, flyerFilename(ev), ev.title), 'Compartilhado', resetShare));
+  withFlyer($('share-btn'), 'Gerando imagem…', (node, ev) => shareFlyer(node, flyerFilename(ev, flyerStyle), ev.title), 'Compartilhado', resetShare));
 
 $('bench-close').addEventListener('click', closeSheet);
 $('sheet-backdrop').addEventListener('click', closeSheet);

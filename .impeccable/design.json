@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-13T00:00:00Z",
-  "title": "Design System: Agenda de Luta",
+  "generatedAt": "2026-10-13T18:00:00Z",
+  "title": "Design System: Calendário de Luta",
   "extensions": {
     "colorMeta": {
       "route": {
@@ -363,7 +363,19 @@
       },
       "flyer-display": {
         "displayName": "Flyer Display",
-        "purpose": "Flyer titles, stepped 136/110/90/74px by length."
+        "purpose": "Flyer titles on the poster scale, one of four length classes (136/110/90/74px on Placa da estação); never used in the UI."
+      },
+      "flyer-numeral": {
+        "displayName": "Flyer Numeral",
+        "purpose": "The oversized day or date on flyers: 520px on Vermelho total, 400px on Data gigante."
+      },
+      "flyer-brand": {
+        "displayName": "Flyer Brand",
+        "purpose": "App name beside the calendar mark on every flyer (32 to 40px)."
+      },
+      "flyer-slogan": {
+        "displayName": "Flyer Slogan",
+        "purpose": "\"Bora virar voto!\" in the shared flyer footer; 52px in route red beside contact or link."
       }
     },
     "shadows": [
@@ -391,6 +403,11 @@
         "name": "terminal-rings",
         "value": "0 0 0 3px var(--ground), 0 0 0 6px var(--graphite)",
         "purpose": "Double ring around the election terminal."
+      },
+      {
+        "name": "flyer-object",
+        "value": "0 18px 40px rgba(28, 28, 30, 0.28) (ticket); 0 10px 22px rgba(28, 28, 30, 0.16) (enamel frieze); 0 3px 8px rgba(28, 28, 30, 0.14) (pasted strip)",
+        "purpose": "Soft shadows of the physical objects a flyer depicts (Bilhete, Azulejo, Lambe-lambe); flyer-only."
       }
     ],
     "motion": [
@@ -438,7 +455,96 @@
         "name": "bench-column",
         "value": "420px"
       }
-    ]
+    ],
+    "flyerScale": {
+      "canvas": "1080 x 1350 PNG",
+      "range": "24px to 520px, separate from the UI ramp",
+      "sizeClasses": "is-xl / is-lg / is-md / is-sm from text length (default thresholds 22, 40, 64 characters)",
+      "descriptionMax": 110,
+      "slogan": "Bora virar voto!",
+      "layouts": [
+        {
+          "id": "placa",
+          "name": "Placa da estação",
+          "thesis": "The station sign",
+          "ground": "Platform grey",
+          "signature": "168px graphite sign bar, 20px route strip, two-stop vertical route",
+          "title": "136/110/90/74"
+        },
+        {
+          "id": "linha",
+          "name": "Linha até a eleição",
+          "thesis": "A stretch of line to election day",
+          "ground": "Platform grey",
+          "signature": "24px horizontal route from a 120px ring to the double-ringed terminal, days counted between",
+          "title": "132/110/90/74"
+        },
+        {
+          "id": "vermelho",
+          "name": "Vermelho total",
+          "thesis": "Drenched: the sheet is the route",
+          "ground": "Route red",
+          "signature": "520px day numeral, white rail with ring, inverted brand mark",
+          "title": "120/100/84/70"
+        },
+        {
+          "id": "partidas",
+          "name": "Painel de partidas",
+          "thesis": "The departures board",
+          "ground": "Graphite with 20px route top edge",
+          "signature": "Split-flap tiles for the time, ruled label rows, route-red footer",
+          "title": "76/66/56/48"
+        },
+        {
+          "id": "bilhete",
+          "name": "Bilhete de ida",
+          "thesis": "A one-way ticket to election day",
+          "ground": "Route red",
+          "signature": "28px-cornered white ticket, perforation with notches, destination stub",
+          "title": "120/100/82/66"
+        },
+        {
+          "id": "trilho",
+          "name": "Trilho vertical",
+          "thesis": "Every fact is a stop on one rail",
+          "ground": "White",
+          "signature": "44px full-height rail with 96px rings; slogan as terminal",
+          "title": "120/98/80/64"
+        },
+        {
+          "id": "data",
+          "name": "Data gigante",
+          "thesis": "Type as the image",
+          "ground": "Platform grey",
+          "signature": "400px date over a 24px route rule",
+          "title": "96/80/66/56 (Barlow 700)"
+        },
+        {
+          "id": "rede",
+          "name": "Mapa da rede",
+          "thesis": "The network map converging on this activity",
+          "ground": "White",
+          "signature": "45-degree lines into a pill interchange with a 12px graphite border",
+          "title": "112/94/78/64"
+        },
+        {
+          "id": "azulejo",
+          "name": "Azulejo da estação",
+          "thesis": "The station tile wall",
+          "ground": "Tile white, 3px grout on a 108px grid (a depicted material, not a UI grid)",
+          "signature": "Route-red enamel frieze with graphite trim, white enamel info panel",
+          "title": "124/102/84/68"
+        },
+        {
+          "id": "lambe",
+          "name": "Lambe-lambe",
+          "thesis": "Pasted strips of wood type",
+          "ground": "Pale pasted-paper white",
+          "signature": "Tilted strips in red, white and graphite; slogan run off the edge",
+          "title": "150/124/98/78"
+        }
+      ]
+    }
   },
   "components": [
     {
@@ -477,9 +583,9 @@
       "name": "Sign Bar",
       "kind": "nav",
       "refersTo": "sign-bar",
-      "description": "Graphite header with brand bullet, condensed brand and countdown, over the 8px route strip.",
-      "html": "<header class=\"ds-sign\"><div class=\"ds-sign-in\"><span class=\"ds-brand\"><span class=\"ds-brand-bullet\"></span>Agenda de Luta</span><p class=\"ds-count\"><strong>12 dias</strong><span>até a eleição</span></p></div><div class=\"ds-strip\"></div></header>",
-      "css": ".ds-sign { background:var(--graphite,#1C1C1E); color:#fff; } .ds-sign-in { min-height:64px; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; gap:16px; } .ds-brand { display:flex; align-items:center; gap:12px; font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif; font-weight:700; font-size:22px; line-height:1; text-transform:uppercase; letter-spacing:.02em; } .ds-brand-bullet { position:relative; width:34px; height:34px; border-radius:50%; background:var(--route,#E4002B); } .ds-brand-bullet::after { content:''; position:absolute; inset:9px; border:3px solid #fff; border-radius:50%; } .ds-count { margin:0; display:flex; flex-direction:column; align-items:flex-end; } .ds-count strong { font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif; font-weight:800; font-size:26px; line-height:1; font-variant-numeric:tabular-nums; } .ds-count span { margin-top:3px; font-family: 'Barlow', system-ui, sans-serif; font-weight:600; font-size:12px; line-height:1; color:#B4B4B9; text-transform:uppercase; letter-spacing:.06em; } .ds-strip { height:8px; background:var(--route,#E4002B); }"
+      "description": "Graphite header with the red calendar brand mark, condensed brand name and countdown, over the 8px route strip.",
+      "html": "<header class=\"ds-sign\"><div class=\"ds-sign-in\"><span class=\"ds-brand\"><span class=\"ds-brand-mark\"><svg class=\"ds-mark\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><rect x=\"8\" y=\"2\" width=\"4\" height=\"8\" rx=\"2\" fill=\"currentColor\"/><rect x=\"20\" y=\"2\" width=\"4\" height=\"8\" rx=\"2\" fill=\"currentColor\"/><rect x=\"3\" y=\"6\" width=\"26\" height=\"23\" rx=\"4\" fill=\"currentColor\"/><g style=\"fill: var(--mark-ink, #fff)\"><rect x=\"3\" y=\"12\" width=\"26\" height=\"2.5\"/><rect x=\"7.5\" y=\"17.5\" width=\"4.5\" height=\"3.5\" rx=\"1\"/><rect x=\"13.75\" y=\"17.5\" width=\"4.5\" height=\"3.5\" rx=\"1\"/><rect x=\"20\" y=\"17.5\" width=\"4.5\" height=\"3.5\" rx=\"1\"/><rect x=\"7.5\" y=\"23\" width=\"4.5\" height=\"3.5\" rx=\"1\"/><rect x=\"13.75\" y=\"23\" width=\"4.5\" height=\"3.5\" rx=\"1\"/></g></svg></span>Calendário de Luta</span><p class=\"ds-count\"><strong>12 dias</strong><span>até a eleição</span></p></div><div class=\"ds-strip\"></div></header>",
+      "css": ".ds-sign { background:var(--graphite,#1C1C1E); color:#fff; } .ds-sign-in { min-height:64px; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; gap:16px; } .ds-brand { display:flex; align-items:center; gap:12px; font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif; font-weight:700; font-size:22px; line-height:1; text-transform:uppercase; letter-spacing:.02em; } .ds-brand-mark { display:grid; width:34px; height:34px; flex:none; color:var(--route,#E4002B); } .ds-mark { width:100%; height:100%; } .ds-count { margin:0; display:flex; flex-direction:column; align-items:flex-end; } .ds-count strong { font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif; font-weight:800; font-size:26px; line-height:1; font-variant-numeric:tabular-nums; } .ds-count span { margin-top:3px; font-family: 'Barlow', system-ui, sans-serif; font-weight:600; font-size:12px; line-height:1; color:#B4B4B9; text-transform:uppercase; letter-spacing:.06em; } .ds-strip { height:8px; background:var(--route,#E4002B); }"
     },
     {
       "name": "Next Station Board",
@@ -504,18 +610,35 @@
       "description": "Mensagem / Panfleto switch on a platform-grey track.",
       "html": "<div class=\"ds-seg\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">Mensagem</button><button role=\"tab\" aria-selected=\"false\">Panfleto</button></div>",
       "css": ".ds-seg { display:flex; gap:4px; padding:4px; border-radius:6px; background:var(--ground,#EFEFEC); } .ds-seg [role=tab] { flex:1; min-height:40px; border:0; border-radius:4px; background:transparent; color:var(--muted,#5C5C61); font-family: 'Barlow', system-ui, sans-serif; font-weight:700; font-size:16px; cursor:pointer; transition: background-color .15s, color .15s; } .ds-seg [aria-selected=true] { background:#fff; color:var(--graphite,#1C1C1E); box-shadow:0 1px 2px rgba(28,28,30,.14); } .ds-seg [role=tab]:hover { color:var(--graphite,#1C1C1E); } .ds-seg [role=tab]:focus-visible { outline:3px solid var(--graphite,#1C1C1E); outline-offset:2px; }"
+    },
+    {
+      "name": "Flyer Style Picker",
+      "kind": "custom",
+      "refersTo": "style-select",
+      "description": "Previous / select with n/10 counter / next; wraps around the ten flyer layouts.",
+      "html": "<div class=\"ds-picker\"><button class=\"ds-ib\" aria-label=\"Estilo anterior\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m15 18-6-6 6-6\"/></svg></button><div class=\"ds-sel\"><select aria-label=\"Estilo do panfleto\"><option>Vermelho total</option></select><span class=\"ds-count\">3/10</span></div><button class=\"ds-ib\" aria-label=\"Próximo estilo\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"/></svg></button></div>",
+      "css": ".ds-picker { display:flex; align-items:center; gap:8px; } .ds-ib { display:grid; place-items:center; width:44px; height:44px; flex:none; border:1px solid var(--seam,#D9D9D4); border-radius:6px; background:#fff; color:var(--graphite,#1C1C1E); cursor:pointer; transition:border-color .15s; } .ds-ib:hover { border-color:var(--graphite,#1C1C1E); } .ds-sel { position:relative; flex:1; min-width:0; } .ds-sel select { width:100%; height:44px; padding:0 84px 0 14px; border:1px solid var(--seam,#D9D9D4); border-radius:6px; background:#fff url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C1C1E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\") no-repeat right 12px center / 20px; color:var(--graphite,#1C1C1E); font:600 16px/1 'Barlow', system-ui, sans-serif; appearance:none; cursor:pointer; } .ds-sel select:hover { border-color:var(--graphite,#1C1C1E); } .ds-ib:focus-visible, .ds-sel select:focus-visible { outline:3px solid var(--graphite,#1C1C1E); outline-offset:2px; } .ds-count { position:absolute; right:40px; top:50%; transform:translateY(-50%); font:700 15px/1 'Barlow Condensed', 'Barlow', system-ui, sans-serif; font-variant-numeric:tabular-nums; color:var(--muted,#5C5C61); pointer-events:none; }"
+    },
+    {
+      "name": "Flyer Footer",
+      "kind": "custom",
+      "refersTo": "flyer-foot",
+      "description": "Shared flyer footer at 1/3 scale: contact and link on the left, the slogan in route red beside them.",
+      "html": "<div class=\"ds-ffoot\"><div class=\"ds-finfo\"><div class=\"ds-fcontact\">Fala com: Sucata Cultural</div><div class=\"ds-flink\">instagram.com/sucata</div></div><div class=\"ds-fslogan\">Bora virar voto!</div></div>",
+      "css": ".ds-ffoot { display:flex; align-items:center; gap:13px; padding:15px 24px 17px; background:var(--graphite,#1C1C1E); color:#fff; } .ds-finfo { flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; } .ds-fcontact { font:600 11px/1.25 'Barlow', system-ui, sans-serif; } .ds-flink { font:500 9px/1.25 'Barlow', system-ui, sans-serif; color:#C9C9CE; } .ds-fslogan { flex:none; max-width:107px; font:800 17px/1 'Barlow Condensed', 'Barlow', system-ui, sans-serif; text-transform:uppercase; letter-spacing:.01em; text-align:right; color:var(--route,#E4002B); }"
     }
   ],
   "narrative": {
     "northStar": "Linha da Virada",
-    "overview": "The campaign is drawn as a São Paulo-style metro line. Graphite sign bars carry the name and the countdown; a red route strip runs under them; every day with activity is a station on a vertical red line that ends at a double-ringed terminal on election day. The interface reads like wayfinding signage, not like a calendar app: condensed uppercase station names, tabular condensed times, round line bullets, and two line weights only (the 8px route and 1px seams).\n\nDensity is phone-first and generous. Tap targets are 44 to 48px, the ground is a pale platform grey so white panels separate without heavy shadows, and contrast holds up outdoors. On desktop the same world becomes a production bench: line on the left, a persistent share bench on the right. The 1080 × 1350 flyer is the same signage at poster scale, so a shared image and the site are recognisably one system.\n\nThe world explicitly refuses the default calendar app (white cards on white, grid first) and the protest-poster costume (cream paper with condensed ink boxes).",
+    "overview": "The campaign is drawn as a São Paulo-style metro line. Graphite sign bars carry the name and the countdown; a red route strip runs under them; every day with activity is a station on a vertical red line that ends at a double-ringed terminal on election day. The interface reads like wayfinding signage, not like a calendar app: condensed uppercase station names, tabular condensed times, round line bullets, and two line weights only (the 8px route and 1px seams).\n\nDensity is phone-first and generous. Tap targets are 44 to 48px, the ground is a pale platform grey so white panels separate without heavy shadows, and contrast holds up outdoors. On desktop the same world becomes a production bench: line on the left, a persistent share bench on the right. The ten 1080 × 1350 flyer layouts are the same signage at poster scale, each a different object from the metro (a station sign, a departures board, a ticket, a tile wall, a network map), so a shared image and the site are recognisably one system. The brand is a red calendar mark beside the name, in the sign bar, the favicon and every flyer.\n\nThe world explicitly refuses the default calendar app (white cards on white, grid first) and the protest-poster costume (cream paper with condensed ink boxes).",
     "keyCharacteristics": [
-      "One red route line (8px) is the spine of every view, including the flyer.",
+      "One red route line (8px) is the spine of every view; flyers carry route red as a scaled line, a strip or a full ground.",
       "Platform yellow appears only on the next station.",
       "Activity types are other metro line colours, shown as round bullets and named once.",
       "Barlow for reading, Barlow Condensed for signs, times and dates.",
       "Flat panels outlined by a 1px seam ring; 6px rectangular corners.",
-      "The line draws itself once on load, along its own axis."
+      "The line draws itself once on load, along its own axis.",
+      "The brand is a red calendar mark; station rings stay rings and are never the logo."
     ],
     "rules": [
       {
@@ -534,6 +657,11 @@
         "section": "colors"
       },
       {
+        "name": "The Flyer Palette Rule",
+        "body": "Flyers use route red, graphite, the connection lines and white or pale neutrals, nothing else. Platform yellow never appears on a flyer. The few material neutrals a layout needs (tile white and grout, flap-tile grey, pasted-paper white) belong to the object it depicts.",
+        "section": "colors"
+      },
+      {
         "name": "The Tabular Time Rule",
         "body": "Every time, date and count is set in Barlow Condensed with tabular figures, so the time column aligns like a departures board.",
         "section": "typography"
@@ -544,13 +672,23 @@
         "section": "typography"
       },
       {
+        "name": "The Poster Scale Rule",
+        "body": "Flyer sizes (24 to 520px) belong to the flyer scale and never enter the UI ramp. A flyer's title takes one of four size classes picked from text length (is-xl, is-lg, is-md, is-sm), never a hand-tuned size.",
+        "section": "typography"
+      },
+      {
         "name": "The Seam Not Shadow Rule",
-        "body": "Panels are separated by a 1px seam ring, not by drop shadows. Only floating surfaces get a soft lift.",
+        "body": "Panels are separated by a 1px seam ring, not by drop shadows. Only floating surfaces, and the depicted objects on a flyer, get a soft lift.",
         "section": "elevation"
       },
       {
         "name": "The Two Line Weights Rule",
-        "body": "Lines come in two weights only: the 8px route and the 1px seam. Selection and active states use the route colour at 2 to 4px as an inset (tab underline, selected month day), never a third decorative stroke.",
+        "body": "In the interface, lines come in two weights only: the 8px route and the 1px seam. Selection and active states use the route colour at 2 to 4px as an inset (tab underline, selected month day), never a third decorative stroke. Flyers scale the route and may draw the edges of the object they depict (ticket perforation, enamel frieze trim, departures-board row rules, interchange outline), but no decorative borders.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Mark Is Not A Ring Rule",
+        "body": "The logo is the calendar mark. Station rings, terminals and type bullets are line vocabulary and never stand in for the brand.",
         "section": "shapes"
       }
     ],
@@ -560,14 +698,17 @@
       "Do separate panels with the 1px seam ring on platform grey (`0 0 0 1px` seam plus a 1 to 2px drop).",
       "Do show an activity type as a round line bullet plus its name, once per item, using only the connection-line palette.",
       "Do keep tap targets at 44px or more and primary buttons at 48px.",
-      "Do grey out time that has passed (travelled line, muted text) rather than removing it."
+      "Do grey out time that has passed (travelled line, muted text) rather than removing it.",
+      "Do put the brand (calendar mark and name) and the slogan on every flyer, with the slogan beside the contact or link when they exist.",
+      "Do make each new flyer layout a real object from the metro (a sign, a board, a ticket, a wall, a map) built from the shared brand, type mark and footer, with its title sized by the length classes."
     ],
     "donts": [
       "Don't use platform yellow for anything but the next station (and focus rings on dark surfaces).",
       "Don't give an activity type route red or platform yellow.",
       "Don't add a third line weight or decorative border; the system has the 8px route and the 1px seam.",
-      "Don't drift into the default calendar app look (white cards on white, grid as the first view) or the protest-poster costume (cream paper, condensed ink boxes).",
-      "Don't label a type or a station twice."
+      "Don't drift into the default calendar app look (white cards on white, grid as the first view) or the protest-poster costume (cream paper, condensed ink boxes) in the interface. Lambe-lambe is the one flyer that quotes pasted street posters, and it stays inside the palette.",
+      "Don't label a type or a station twice.",
+      "Don't use a ring or a disc as the logo, and don't bring flyer sizes into the UI ramp."
     ]
   }
 }

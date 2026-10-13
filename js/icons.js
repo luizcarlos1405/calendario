@@ -20,6 +20,13 @@ const PATHS = {
   alert: '<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
 };
 
+// The brand mark: a red calendar. Body takes currentColor; the cut-outs take --mark-ink (white by default).
+const MARK = '<rect x="8" y="2" width="4" height="8" rx="2" fill="currentColor"/><rect x="20" y="2" width="4" height="8" rx="2" fill="currentColor"/><rect x="3" y="6" width="26" height="23" rx="4" fill="currentColor"/><g style="fill: var(--mark-ink, #fff)"><rect x="3" y="12" width="26" height="2.5"/><rect x="7.5" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="20" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="7.5" y="23" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="23" width="4.5" height="3.5" rx="1"/></g>';
+
+export function brandMark(className = 'mark') {
+  return `<svg class="${className}" viewBox="0 0 32 32" aria-hidden="true">${MARK}</svg>`;
+}
+
 export function icon(name, className = 'icon') {
   return `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PATHS[name]}</svg>`;
 }

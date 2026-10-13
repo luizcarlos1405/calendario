@@ -19,11 +19,11 @@ OWN-WORLD: metro wayfinding signage. Graphite sign bars (#1C1C1E), platform-grey
 
 STORY: The activist sees how many days remain, what the next station is, and sends it to WhatsApp without leaving the first screen; scrolling rides the line to the election terminal; any station opens the share bench (copy / WhatsApp / flyer PNG / native share).
 
-FIRST VIEWPORT: Phone 390: sign bar (red bullet + "Agenda de Luta" left, "N dias até a eleição" right), red route strip, "Próxima estação" board (yellow head, big time, type bullet, title, place, primary "Enviar no WhatsApp" + "Panfleto"), view tabs Linha | Mês with type filter, then the vertical line starting at "Hoje". Desktop 1440: same sign bar; left column board + line; right column persistent share bench for the selected station. Signature move: the route line diagram — travelled stretch turns grey, "Hoje" marker, yellow next station, double-ring terminal at 25/10; the line draws once on load along its axis.
+FIRST VIEWPORT: Phone 390: sign bar (red calendar mark + "Calendário de Luta" left, "N dias até a eleição" right), red route strip, "Próxima estação" board (yellow head, big time, type bullet, title, place, primary "Enviar no WhatsApp" + "Panfleto"), view tabs Linha | Mês with type filter, then the vertical line starting at "Hoje". Desktop 1440: same sign bar; left column board + line; right column persistent share bench for the selected station. Signature move: the route line diagram — travelled stretch turns grey, "Hoje" marker, yellow next station, double-ring terminal at 25/10; the line draws once on load along its axis.
 
 FORM: Linha da Virada (São Paulo metro wayfinding), position 3 on the ordered list; seed key 9da75841. Raises: persistent desktop bench (console), reserved yellow for próxima (orienteering), tabular time column (datamatics), nothing labelled twice (catalog sleeve), two line weights (centre rail).
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
 ## Unresolved
-- Official movement name/logo/slogan (placeholders: "Agenda de Luta", "Bora virar voto!").
+- Official movement name/logo/slogan (placeholders: "Calendário de Luta", "Bora virar voto!").

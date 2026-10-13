@@ -1,5 +1,5 @@
 ---
-name: Agenda de Luta
+name: Calendário de Luta
 description: The campaign's activities as one red metro line running to election day, each station ready to share.
 colors:
   route: "#E4002B"
@@ -85,6 +85,25 @@ typography:
     fontSize: "136px"
     fontWeight: 800
     lineHeight: 0.98
+  flyer-numeral:
+    fontFamily: "Barlow Condensed, Barlow, system-ui, sans-serif"
+    fontSize: "520px"
+    fontWeight: 800
+    lineHeight: 0.78
+    letterSpacing: "-0.03em"
+    fontFeature: "tnum"
+  flyer-brand:
+    fontFamily: "Barlow Condensed, Barlow, system-ui, sans-serif"
+    fontSize: "36px"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "0.02em"
+  flyer-slogan:
+    fontFamily: "Barlow Condensed, Barlow, system-ui, sans-serif"
+    fontSize: "64px"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "0.01em"
 rounded:
   xs: "4px"
   md: "6px"
@@ -172,9 +191,23 @@ components:
   stop-selected:
     backgroundColor: "{colors.route-tint}"
     textColor: "{colors.route}"
+  brand-mark:
+    textColor: "{colors.route}"
+    size: "34px"
+  style-select:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.graphite}"
+    rounded: "{rounded.md}"
+    padding: "0 84px 0 14px"
+    height: "44px"
+  flyer-foot:
+    backgroundColor: "{colors.graphite}"
+    textColor: "{colors.on-sign}"
+    typography: "{typography.flyer-slogan}"
+    padding: "44px 72px 52px"
 ---
 
-# Design System: Agenda de Luta
+# Design System: Calendário de Luta
 
 ## Overview
 
@@ -182,24 +215,25 @@ components:
 
 The campaign is drawn as a São Paulo-style metro line. Graphite sign bars carry the name and the countdown; a red route strip runs under them; every day with activity is a station on a vertical red line that ends at a double-ringed terminal on election day. The interface reads like wayfinding signage, not like a calendar app: condensed uppercase station names, tabular condensed times, round line bullets, and two line weights only (the 8px route and 1px seams).
 
-Density is phone-first and generous. Tap targets are 44 to 48px, the ground is a pale platform grey so white panels separate without heavy shadows, and contrast holds up outdoors. On desktop the same world becomes a production bench: line on the left, a persistent share bench on the right. The 1080 × 1350 flyer is the same signage at poster scale, so a shared image and the site are recognisably one system.
+Density is phone-first and generous. Tap targets are 44 to 48px, the ground is a pale platform grey so white panels separate without heavy shadows, and contrast holds up outdoors. On desktop the same world becomes a production bench: line on the left, a persistent share bench on the right. The ten 1080 × 1350 flyer layouts are the same signage at poster scale, each a different object from the metro (a station sign, a departures board, a ticket, a tile wall, a network map), so a shared image and the site are recognisably one system. The brand is a red calendar mark beside the name, in the sign bar, the favicon and every flyer.
 
 The world explicitly refuses the default calendar app (white cards on white, grid first) and the protest-poster costume (cream paper with condensed ink boxes).
 
 **Key Characteristics:**
-- One red route line (8px) is the spine of every view, including the flyer.
+- One red route line (8px) is the spine of every view; flyers carry route red as a scaled line, a strip or a full ground.
 - Platform yellow appears only on the next station.
 - Activity types are other metro line colours, shown as round bullets and named once.
 - Barlow for reading, Barlow Condensed for signs, times and dates.
 - Flat panels outlined by a 1px seam ring; 6px rectangular corners.
 - The line draws itself once on load, along its own axis.
+- The brand is a red calendar mark; station rings stay rings and are never the logo.
 
 ## Colors
 
 A signage palette: graphite and platform grey carry the structure, route red carries the line and the actions, and one reserved yellow marks what comes next.
 
 ### Primary
-- **Route Red** (`route`): the line itself, the route strip under the sign bar, the bench head's bottom border, primary buttons ("Enviar no WhatsApp"), the selected view tab underline, the election terminal and badge, flyer times and slogan. Red stays dominant by being the one continuous line on screen, not by filling surfaces.
+- **Route Red** (`route`): the line itself, the route strip under the sign bar, the bench head's bottom border, primary buttons ("Enviar no WhatsApp"), the selected view tab underline, the election terminal and badge, the brand mark's body, flyer times and slogan, and the full ground of the Vermelho total and Bilhete de ida flyers. Red stays dominant by being the one continuous line on screen, not by filling surfaces.
 - **Route Red, Pressed** (`route-hover`): hover on primary buttons, and links inside the bench facts, where it reads as text on white.
 - **Route Tint** (`route-tint`): background of the selected stop and of error notices.
 
@@ -207,11 +241,11 @@ A signage palette: graphite and platform grey carry the structure, route red car
 - **Platform Yellow** (`next`): the next-station plate on the board, the next station's ring on the line, the ring around the next activity's dot in the month grid, and the focus outline on dark surfaces.
 
 ### Tertiary
-- **Connection Lines** (`line-azul`, `line-verde`, `line-lilas`, `line-turquesa`, `line-laranja`, `line-prata`, `line-marrom`, `line-magenta`): activity-type colours, assigned in sorted order to the known types, with a name hash as fallback for unknown free-text types. They appear only as round bullets (10px in lists, 8 to 9px in the month grid, 40px on the flyer).
+- **Connection Lines** (`line-azul`, `line-verde`, `line-lilas`, `line-turquesa`, `line-laranja`, `line-prata`, `line-marrom`, `line-magenta`): activity-type colours, assigned in sorted order to the known types, with a name hash as fallback for unknown free-text types. They appear only as round bullets (10px in lists, 8 to 9px in the month grid, 26 to 40px on flyers), plus the converging lines of the Mapa da rede flyer, where the activity's own type colour is the line that reaches the interchange.
 
 ### Neutral
 - **Graphite** (`graphite`): sign bars, bench head, month weekday row, ink, the "Hoje" badge and ring, the outline button, the selected chip, and the default focus outline.
-- **Platform Grey** (`ground`): page background, flyer body, segmented control track.
+- **Platform Grey** (`ground`): page background, segmented control track, and the default flyer ground.
 - **Panel White** (`panel`) and **Panel Hover** (`panel-hover`): surfaces such as the next board, stop lists, month cells and the bench, and their hover state.
 - **Seam** (`seam`): 1px dividers, panel outline rings, chip and quiet-button borders, month grid gutters.
 - **Muted Ink** (`muted`): secondary text, relative-day notes, past stations, inactive tabs.
@@ -224,6 +258,8 @@ A signage palette: graphite and platform grey carry the structure, route red car
 **The Two Reserved Colours Rule.** Route red and platform yellow never appear among the activity-type colours. Types ride the connection-line palette only.
 
 **The Travelled Line Rule.** Time already behind today turns the line and its rings to `travelled` grey, and past text to muted ink. Never hide past stations; grey them.
+
+**The Flyer Palette Rule.** Flyers use route red, graphite, the connection lines and white or pale neutrals, nothing else. Platform yellow never appears on a flyer: there is no "next" in a single activity. The few material neutrals a layout needs (tile white and grout on Azulejo, the flap-tile grey on Partidas, pasted-paper white on Lambe-lambe) belong to the object it depicts.
 
 ## Typography
 
@@ -245,12 +281,14 @@ Both are self-hosted woff2 files; the Barlow Condensed 800 and Barlow 600 files 
 - **Label** (Barlow 600, 14 to 15px): type tags, chips, relative-day notes.
 - **Label Caps** (Barlow 700, 12px, uppercase, 0.06em): status badges ("HOJE", "ELEIÇÃO · 2º TURNO"), month weekday row, the countdown unit line.
 - **Button** (Barlow 700, 16px, line-height 1).
-- **Flyer Display** (Condensed 800, 74 to 136px stepped by title length, line-height 0.98): flyer titles; flyer dates at 104px, times at 72px.
+- **Flyer scale** (poster sizes, 24 to 520px; see Components > Flyers): a separate ramp for the 1080 × 1350 canvas. Flyer Display is the condensed 800 title (136px at its largest on Placa da estação, line-height 0.92 to 1.02), stepped down by text length; Flyer Numeral is the oversized day or date (520px on Vermelho total, 400px on Data gigante, -0.03em, tabular); Flyer Brand (36px) and Flyer Slogan (64px, 52px in route red beside contact) are shared by every layout. Small caps labels sit at 24 to 26px with 0.08 to 0.1em tracking.
 
 ### Named Rules
 **The Tabular Time Rule.** Every time, date and count is set in Barlow Condensed with tabular figures, so the time column aligns like a departures board.
 
 **The Said Once Rule.** A type is named in exactly one place per item, next to its bullet. Nothing is labelled twice.
+
+**The Poster Scale Rule.** Flyer sizes belong to the flyer scale and never enter the UI ramp. A flyer's title (and the Lambe-lambe type strip) takes one of four size classes picked from text length (`is-xl`, `is-lg`, `is-md`, `is-sm`; by default up to 22, 40 and 64 characters), never a hand-tuned size per activity.
 
 ## Layout
 
@@ -258,7 +296,9 @@ Phone first. A single column in a 1280px max container with 16px gutters; at 960
 
 Below the sign bar and route strip come the next-station board, the view tabs with a horizontally scrolling filter row (fading out at the right edge), and then the view. The line view is a vertical list with a 48px left gutter holding the route (16px from the edge) and 24px station rings; stations are 28px apart. The month view is a 7-column grid with 1px seam gutters; on phones cells show type dots, on desktop they show time and title rows clamped to two lines.
 
-The share bench is sticky beside the line on desktop and becomes a bottom sheet (up to 92dvh, translucent graphite backdrop, grab handle on the bench head) below 960px. Its actions stick to the bottom of the bench.
+The share bench is sticky beside the line on desktop and becomes a bottom sheet (up to 92dvh, translucent graphite backdrop, grab handle on the bench head) below 960px. Its actions stick to the bottom of the bench. In the Panfleto panel, the style picker (previous button, select, next button, 8px gaps) sits above a 340px-wide scaled preview of the flyer.
+
+Flyers are a fixed 1080 × 1350 canvas laid out as a vertical stack: 72px side margins on most layouts (40 to 80px on Lambe-lambe and Data gigante), a header row with the brand and the type, and a footer that bleeds to the edges and is pushed to the bottom.
 
 Spacing steps observed: 4, 8, 12, 16, 24 and 32px, with 48 and 64px for page bottoms.
 
@@ -273,15 +313,21 @@ Flat, with tonal layering: white panels sit on platform grey and are outlined by
 - **Segment lift** (`box-shadow: 0 1px 2px rgba(28, 28, 30, 0.14)`): the selected segment in the Mensagem / Panfleto control.
 
 ### Named Rules
-**The Seam Not Shadow Rule.** Panels are separated by a 1px seam ring, not by drop shadows. Only floating surfaces get a soft lift.
+- **Flyer material shadows**: some flyers depict physical objects and the soft shadow belongs to the object: the ticket on Bilhete de ida (`0 18px 40px`, 0.28), the enamel plate, frieze and panel on Azulejo (6 to 30px blur, 0.12 to 0.18), the pasted strips on Lambe-lambe (`0 3px 8px`, 0.14), and the inset bottom edge of the split-flap tiles on Partidas. All are soft and graphite-tinted; none are hard offsets.
+
+**The Seam Not Shadow Rule.** Panels are separated by a 1px seam ring, not by drop shadows. Only floating surfaces, and the depicted objects on a flyer, get a soft lift.
 
 ## Shapes
 
 Rectangular signage with gently cut corners (6px) on panels, buttons, icon buttons and the month grid; 4px on small plates (the yellow time plate, segment tabs). The bench uses 8px and becomes 14px on top as a bottom sheet. Filter chips are full pills.
 
-Circles are the world's other shape and carry meaning: station rings (24px with a 5px border), the election terminal (32px with a 7px red border, then ground and graphite outer rings), type bullets, and the brand bullet (a red disc with a white inner ring). The route is a straight 8px bar, scaled up to 20px on the flyer.
+Circles are the world's other shape and carry meaning: station rings (24px with a 5px border), the election terminal (32px with a 7px red border, then ground and graphite outer rings), and type bullets. The route is a straight 8px bar, scaled to 20 to 44px on flyers (with flyer rings of 80 to 120px).
 
-**The Two Line Weights Rule.** Lines come in two weights only: the 8px route and the 1px seam. Selection and active states use the route colour at 2 to 4px as an inset (tab underline, selected month day), never a third decorative stroke.
+The brand mark is the one rectangle-with-meaning: a red calendar (a 4px-rounded body with two binder tabs, a white header band and five day cells) drawn on a 32 × 32 grid. Flyer objects keep their own corners: the 28px ticket, 14px flap tiles and enamel plate, the 18px enamel panel, the 100px pill around the Mapa da rede interchange.
+
+**The Two Line Weights Rule.** In the interface, lines come in two weights only: the 8px route and the 1px seam. Selection and active states use the route colour at 2 to 4px as an inset (tab underline, selected month day), never a third decorative stroke. Flyers scale the route and may draw the edges of the object they depict (the ticket perforation, the enamel frieze trim, the departures-board row rules, the interchange outline), but no decorative borders.
+
+**The Mark Is Not A Ring Rule.** The logo is the calendar mark. Station rings, terminals and type bullets are line vocabulary and never stand in for the brand.
 
 ## Components
 
@@ -309,7 +355,7 @@ Signage-plain and full-height, sized for thumbs.
 - **Segmented control:** platform-grey track with 4px padding; the selected segment is white with a segment lift.
 
 ### Sign Bar
-Graphite bar with the brand bullet and uppercase brand name on the left and the countdown (Sign Display number over a Label Caps unit line) on the right, followed by the 8px route strip.
+Graphite bar with the calendar brand mark (34px) and uppercase brand name on the left and the countdown (Sign Display number over a Label Caps unit line) on the right, followed by the 8px route strip.
 
 ### Next Station Board
 White panel led by the yellow time plate and the relative day, then the activity title as a Headline (an underline appears in route red on hover), the type tag and place, then the route and line buttons.
@@ -318,10 +364,37 @@ White panel led by the yellow time plate and the relative day, then the activity
 Each station has a day in Sign Headline, a relative-day note or a badge (graphite "HOJE", route-red election badge), and a panel of stops. Stop rows are a three-column grid: tabular time, title with type tag and place, and a chevron. The selected stop takes route tint with a red time and chevron. Ring states: route-red default, travelled grey for past, graphite ring for today, yellow fill with a graphite ring for next, and the double-ringed terminal for the election. On load the route segments scale in from the top and the rings pop in at 70ms intervals; reduced-motion users get none of it.
 
 ### Share Bench
-Graphite head with an 8px route-red bottom border, a facts list with icons, the Mensagem / Panfleto segmented control, then either a WhatsApp-style preview or the scaled flyer preview, with sticky actions at the bottom.
+Graphite head with an 8px route-red bottom border, a facts list with icons, the Mensagem / Panfleto segmented control, then either a WhatsApp-style preview or the flyer style picker over the scaled flyer preview, with sticky actions at the bottom.
 
-### Flyer
-1080 × 1350 poster: a 168px graphite sign bar (brand, plus the type as a white-ringed bullet and name), a 20px route strip, a platform-grey body with the condensed title, a mini route of two rings (date and time, then place), a description clamped to three lines, and a graphite footer with the contact and the slogan in route red.
+### Brand Mark
+A red calendar on a 32 × 32 grid. The body takes the current text colour and the cut-outs (header band, day cells) take a mark-ink colour that defaults to white, so the same drawing serves every ground: route red with white cut-outs in the sign bar (34px), the favicon and most flyers (44 to 60px); inverted to a white body with route-red cut-outs on the Vermelho total flyer. It always sits left of the uppercase name in Barlow Condensed 700.
+
+### Flyer Style Picker
+A row of three controls above the preview: a 44px previous icon button, a native select styled in the system (44px high, white, 1px seam border that turns graphite on hover, 6px corners, Barlow 600 16px, a 20px graphite chevron at the right), and a 44px next icon button. Inside the select, right of the name and before the chevron, a muted "n/10" counter in Barlow Condensed 700 15px with tabular figures. Previous and next wrap around the ten layouts; the choice is remembered on the device.
+
+### Flyers
+Ten 1080 × 1350 PNG layouts, listed in picker order. Every layout shares these parts:
+- **Brand:** the calendar mark (52px by default) beside the app name in Flyer Brand type.
+- **Type mark:** the type's line bullet (34px, with a 5px white ring) and its name in condensed 800 uppercase (38 to 52px), truncated to one line.
+- **Footer:** on six layouts, a graphite full-bleed band pushed to the bottom (route red on Painel de partidas). With a contact or link, the contact ("Fala com: …", Barlow 600 34px) and the link (Barlow 500 28px, light grey) sit on the left and the slogan sits beside them on the right in route red at 52px; without them, the slogan stands alone at 64px in white.
+- **Slogan:** every flyer carries "Bora virar voto!", in the shared footer or in the layout's own terminal, stub, foot row or run.
+- **Description:** cut in code to 110 characters at a word boundary with an ellipsis, and also clamped to two or three lines on the layouts that show it (Placa da estação, Linha até a eleição, Azulejo da estação).
+- **Title size:** one of four classes picked from text length (see The Poster Scale Rule); the sizes below are listed xl / lg / md / sm.
+
+| # | Layout | Thesis | Ground | Signature | Type scale |
+|---|---|---|---|---|---|
+| 1 | Placa da estação | The station sign | Platform grey | 168px graphite sign bar and 20px route strip; a two-stop vertical route (80px rings, 16px border) from when to where | Title 136 / 110 / 90 / 74; date 104; time 72 red; place 46; description 34 |
+| 2 | Linha até a eleição | A stretch of line from this activity to election day | Platform grey | 24px horizontal route from a 120px ring to the double-ringed terminal, with the days between counted under it; a single stop once the election is past | Title 132 / 110 / 90 / 74; stop dates 84; time 60 red; place 44; description 32 |
+| 3 | Vermelho total | Drenched: the sheet is the route | Route red, white type | The day numeral fills half the sheet; a 24px white rail with an 84px ring; the time on a graphite plate; the brand mark inverted | Numeral 520; weekday and month 88; time 58; title 120 / 100 / 84 / 70; place 42 |
+| 4 | Painel de partidas | The departures board | Graphite with a 20px route top edge | Split-flap tiles (196 × 280px, 14px corners) for the start time, a route-red separator, then label rows ruled at 2px; a route-red footer with a white slogan | Tiles 240; separator 190; until time 56; title 76 / 66 / 56 / 48; values 40; labels 26 caps |
+| 5 | Bilhete de ida | A one-way ticket to election day | Route red, white ticket | A 28px-cornered ticket with a graphite head, a dashed perforation with round notches, and a stub whose destination is "Eleição · dd/mm" in red | Title 120 / 100 / 82 / 66; field values and destination 72; labels 24 caps; slogan 48 |
+| 6 | Trilho vertical | Every fact is a stop on one rail | White | A 44px full-height route rail down the left with 96px rings; the slogan is the terminal, with a double ring | Title 120 / 98 / 80 / 64 uppercase; date 128; time 88 red; place 46; slogan 76 red |
+| 7 | Data gigante | Type as the image | Platform grey | The date set as large as the sheet allows over a 24px route rule; a 3px graphite rule above the foot row | Weekday 92 red; date 400; time 104 red; title (Barlow 700, balanced) 96 / 80 / 66 / 56; place 40; slogan 52 red |
+| 8 | Mapa da rede | The network map, converging on this activity | White | Lines bending at 45° (the route at 34px, the type's line at 22px, others at 18px, white stations outlined in graphite) into a pill interchange with a 12px graphite border holding the date and time | Hub date 96; time 64 red; title 112 / 94 / 78 / 64; place 40 |
+| 9 | Azulejo da estação | The station tile wall | Tile white with grey grout on a 108px grid | A route-red enamel frieze with 14px graphite trim carrying the uppercase white title; a graphite type plate; a white enamel info panel | Title 124 / 102 / 84 / 68; date 96; time 72 red; place 40; description 30 |
+| 10 | Lambe-lambe | Pasted strips of wood type | Pale pasted-paper white | Strips tilted between -1.5 and 0.6 degrees with a soft paste shadow: a red type strip, a white title strip, a graphite when strip, a red-outlined place strip, and the slogan run in red off the right edge | Type strip 200 / 160 / 120 / 96; title 150 / 124 / 98 / 78; when 112; place 66; slogan run 110 |
+
+The Azulejo grid is a drawing of a real station tile wall (3px grout lines on both axes), a material the metro world owns; it is not a decorative UI grid and does not license grid backgrounds elsewhere.
 
 ## Do's and Don'ts
 
@@ -332,10 +405,13 @@ Graphite head with an 8px route-red bottom border, a facts list with icons, the 
 - **Do** show an activity type as a round line bullet plus its name, once per item, using only the connection-line palette.
 - **Do** keep tap targets at 44px or more and primary buttons at 48px.
 - **Do** grey out time that has passed (travelled line, muted text) rather than removing it.
+- **Do** put the brand (calendar mark and name) and the slogan on every flyer, with the slogan beside the contact or link when they exist.
+- **Do** make each new flyer layout a real object from the metro (a sign, a board, a ticket, a wall, a map) built from the shared brand, type mark and footer, with its title sized by the length classes.
 
 ### Don't:
 - **Don't** use platform yellow for anything but the next station (and focus rings on dark surfaces).
 - **Don't** give an activity type route red or platform yellow.
 - **Don't** add a third line weight or decorative border; the system has the 8px route and the 1px seam.
-- **Don't** drift into the default calendar app look (white cards on white, grid as the first view) or the protest-poster costume (cream paper, condensed ink boxes).
+- **Don't** drift into the default calendar app look (white cards on white, grid as the first view) or the protest-poster costume (cream paper, condensed ink boxes) in the interface. Lambe-lambe is the one flyer that quotes pasted street posters, and it stays inside the palette (pale neutral paper, white, graphite and route-red strips).
+- **Don't** use a ring or a disc as the logo, and don't bring flyer sizes into the UI ramp.
 - **Don't** label a type or a station twice.
