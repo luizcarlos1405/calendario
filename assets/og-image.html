@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- Source of assets/og-image.png, the link preview shown by WhatsApp and other apps.
+     Re-render it after changing the name or the election date (see README, "Prévia do link"). -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Prévia do link</title>
+<style>
+  @font-face { font-family: 'Barlow'; font-weight: 600; src: url(../fonts/barlow-600.woff2) format('woff2'); }
+  @font-face { font-family: 'Barlow Condensed'; font-weight: 700; src: url(../fonts/barlow-condensed-700.woff2) format('woff2'); }
+  @font-face { font-family: 'Barlow Condensed'; font-weight: 800; src: url(../fonts/barlow-condensed-800.woff2) format('woff2'); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    display: flex;
+    flex-direction: column;
+    background: #EFEFEC;
+    color: #1C1C1E;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .sign { display: flex; align-items: center; gap: 36px; height: 300px; padding: 0 80px; background: #1C1C1E; color: #fff; }
+  .mark { width: 170px; height: 170px; flex: none; color: #E4002B; }
+  .name { font: 800 116px/0.92 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.01em; }
+  .strip { height: 18px; background: #E4002B; }
+
+  .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 0 80px; }
+  .tagline { font: 600 38px/1.2 'Barlow', sans-serif; color: #3A3A3E; }
+
+  /* The route to election day: past stretch, stations, terminal. */
+  .route { position: relative; height: 90px; }
+  .track { position: absolute; left: 24px; width: 600px; top: 45px; height: 16px; margin-top: -8px; background: #E4002B; }
+  .ring { position: absolute; top: 45px; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; border: 11px solid #E4002B; background: #fff; }
+  .ring.next { background: #FFC20E; border-color: #1C1C1E; }
+  .ring.end { box-shadow: 0 0 0 7px #EFEFEC, 0 0 0 14px #1C1C1E; }
+  .terminal { position: absolute; left: 680px; top: 45px; transform: translateY(-50%); font: 800 52px/1 'Barlow Condensed', sans-serif; text-transform: uppercase; }
+  .terminal span { color: #E4002B; }
+</style>
+</head>
+<body>
+  <div class="sign">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="8" y="2" width="4" height="8" rx="2" fill="currentColor"/>
+      <rect x="20" y="2" width="4" height="8" rx="2" fill="currentColor"/>
+      <rect x="3" y="6" width="26" height="23" rx="4" fill="currentColor"/>
+      <g fill="#fff">
+        <rect x="3" y="12" width="26" height="2.5"/>
+        <rect x="7.5" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="20" y="17.5" width="4.5" height="3.5" rx="1"/>
+        <rect x="7.5" y="23" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="23" width="4.5" height="3.5" rx="1"/>
+      </g>
+    </svg>
+    <div class="name">Calendário<br>de Luta</div>
+  </div>
+  <div class="strip"></div>
+  <div class="body">
+    <p class="tagline">As atividades até o 2º turno, com mensagem e panfleto prontos para o WhatsApp.</p>
+    <div class="route">
+      <span class="track"></span>
+      <span class="ring" style="left: 24px"></span>
+      <span class="ring next" style="left: 174px"></span>
+      <span class="ring" style="left: 324px"></span>
+      <span class="ring" style="left: 474px"></span>
+      <span class="ring end" style="left: 624px"></span>
+      <div class="terminal">25/10 <span>Eleição</span></div>
+    </div>
+  </div>
+</body>
+</html>

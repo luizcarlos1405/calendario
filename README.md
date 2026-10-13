@@ -52,6 +52,14 @@ e acesse <http://localhost:8000>.
 
 Qualquer hospedagem estática serve (GitHub Pages, Netlify, Cloudflare Pages…): é só publicar a pasta inteira. Para atualizar a agenda, troque o `data/agenda.csv` e publique de novo.
 
+## Prévia do link
+
+Quando alguém cola o link do site no WhatsApp (ou Telegram, Facebook…), aparece uma prévia com título, descrição e imagem. Ela vem das tags `og:` no `<head>` do `index.html` e da imagem `assets/og-image.png` (1200 × 630).
+
+- Se o endereço do site mudar, troque `https://calendario.rsensato.com/` nas tags `og:url`, `og:image` e `canonical` do `index.html`.
+- Para mudar a imagem, edite `assets/og-image.html`, abra pelo servidor local (`http://localhost:8000/assets/og-image.html`), tire um print de exatamente 1200 × 630 (no Chrome: DevTools → modo dispositivo em 1200 × 630 → menu ⋮ → "Capturar captura de tela") e salve por cima de `assets/og-image.png`.
+- O WhatsApp guarda a prévia em cache por um tempo: depois de mudar, um link novo (ex.: `https://calendario.rsensato.com/?v=2`) mostra a versão atualizada.
+
 ## Personalizando
 
 Tudo que costuma mudar fica em `js/config.js`:
@@ -85,5 +93,6 @@ js/icons.js         ícones
 js/csv.js           leitor de CSV
 js/events.js        normaliza linhas, datas e horários
 js/vendor/          html-to-image (gera o PNG)
-data/agenda.csv     a agenda
+data/agenda.csv     modelo e cópia local da agenda
+assets/             imagem da prévia do link (og-image) e sua fonte HTML
 ```
