@@ -24,6 +24,7 @@ One place that shows the calendar of the movement's activities (panfletagens, fo
 
 - Data comes from a CSV: currently `data/agenda.csv`; later a public Google Sheet published as CSV (`CSV_URL` in `js/config.js`). Editing the sheet updates the site.
 - Used during an intense, short campaign window (days to the election), often outdoors, on mid-range Android phones, frequently shared via WhatsApp.
+- All activities happen in Dourados/MS (`CITY` in `js/config.js`); the city is shown in the header, the WhatsApp message and the link preview (flyers stay as they are; most places already name the city).
 - UI language: Portuguese (pt-BR).
 
 ## Capabilities and Constraints

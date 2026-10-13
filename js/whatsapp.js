@@ -1,6 +1,7 @@
 // Builds a WhatsApp-ready message for an event.
 // WhatsApp formatting: *bold*, _italic_. Lines for empty fields are left out.
 
+import { CITY } from './config.js';
 import { formatShortDate, formatTimeRange } from './events.js';
 
 // Closing line added to every message — change it freely (or set to '' to remove).
@@ -9,7 +10,8 @@ export const CLOSING_LINE = '✊ Bora virar voto!';
 export function buildWhatsAppMessage(event) {
   const blocks = [];
 
-  if (event.type) blocks.push([`🚩 *${event.type.toUpperCase()}*`]);
+  // The type (when there is one) and the city head every message, so it travels with its context.
+  blocks.push([event.type ? `🚩 *${event.type.toUpperCase()}* · ${CITY}` : `🚩 ${CITY}`]);
 
   blocks.push([`*${event.title}*`]);
 

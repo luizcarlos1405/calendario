@@ -6,6 +6,9 @@ export const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgmpH83
 
 export const APP_NAME = 'Calendário de Luta';
 
+// Where every activity happens; shown under the name and in the WhatsApp message.
+export const CITY = 'Dourados/MS';
+
 // The end of the line: every activity runs toward this day.
 export const ELECTION_DATE = '2026-10-25';
 export const ELECTION_LABEL = 'Eleição · 2º turno';

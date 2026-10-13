@@ -20,21 +20,24 @@
     font-family: 'Barlow', sans-serif;
   }
 
-  .sign { display: flex; align-items: center; gap: 36px; height: 300px; padding: 0 80px; background: #1C1C1E; color: #fff; }
-  .mark { width: 170px; height: 170px; flex: none; color: #E4002B; }
-  .name { font: 800 116px/0.92 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.01em; }
+  .sign { display: flex; align-items: center; gap: 40px; height: 372px; padding: 0 80px; background: #1C1C1E; color: #fff; }
+  .mark { width: 200px; height: 200px; flex: none; color: #E4002B; }
+  .title { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+  .name { font: 800 108px/0.92 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.01em; }
+  /* The city as a station destination plate. */
+  .city { padding: 10px 22px 8px; border-radius: 8px; background: #E4002B; color: #fff; font: 800 74px/1 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
   .strip { height: 18px; background: #E4002B; }
 
-  .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 0 80px; }
-  .tagline { font: 600 38px/1.2 'Barlow', sans-serif; color: #3A3A3E; }
+  .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 0 80px; }
+  .tagline { font: 600 34px/1.2 'Barlow', sans-serif; color: #3A3A3E; }
 
   /* The route to election day: past stretch, stations, terminal. */
-  .route { position: relative; height: 90px; }
-  .track { position: absolute; left: 24px; width: 600px; top: 45px; height: 16px; margin-top: -8px; background: #E4002B; }
-  .ring { position: absolute; top: 45px; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; border: 11px solid #E4002B; background: #fff; }
+  .route { position: relative; height: 80px; }
+  .track { position: absolute; left: 24px; width: 600px; top: 40px; height: 16px; margin-top: -8px; background: #E4002B; }
+  .ring { position: absolute; top: 40px; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; border: 11px solid #E4002B; background: #fff; }
   .ring.next { background: #FFC20E; border-color: #1C1C1E; }
   .ring.end { box-shadow: 0 0 0 7px #EFEFEC, 0 0 0 14px #1C1C1E; }
-  .terminal { position: absolute; left: 680px; top: 45px; transform: translateY(-50%); font: 800 52px/1 'Barlow Condensed', sans-serif; text-transform: uppercase; }
+  .terminal { position: absolute; left: 680px; top: 40px; transform: translateY(-50%); font: 800 52px/1 'Barlow Condensed', sans-serif; text-transform: uppercase; }
   .terminal span { color: #E4002B; }
 </style>
 </head>
@@ -50,11 +53,14 @@
         <rect x="7.5" y="23" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="23" width="4.5" height="3.5" rx="1"/>
       </g>
     </svg>
-    <div class="name">Calendário<br>de Luta</div>
+    <div class="title">
+      <div class="name">Calendário<br>de Luta</div>
+      <div class="city">Dourados/MS</div>
+    </div>
   </div>
   <div class="strip"></div>
   <div class="body">
-    <p class="tagline">As atividades até o 2º turno, com mensagem e panfleto prontos para o WhatsApp.</p>
+    <p class="tagline">Atividades até o 2º turno, com mensagem e panfleto prontos.</p>
     <div class="route">
       <span class="track"></span>
       <span class="ring" style="left: 24px"></span>

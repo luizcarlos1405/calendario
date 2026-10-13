@@ -66,6 +66,7 @@ Tudo que costuma mudar fica em `js/config.js`:
 
 - `CSV_URL`: de onde vem a agenda (arquivo local ou planilha publicada).
 - `APP_NAME`: nome que aparece no topo do site e nos panfletos.
+- `CITY`: a cidade das atividades (hoje `Dourados/MS`), mostrada embaixo do nome e no começo de cada mensagem de WhatsApp. Se mudar, troque também nas tags do `<head>` do `index.html` e em `assets/og-image.html`.
 - `ELECTION_DATE` / `ELECTION_LABEL`: o ponto final da linha e a contagem regressiva.
 
 Outros textos:

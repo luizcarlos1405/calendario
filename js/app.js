@@ -1,4 +1,4 @@
-import { APP_NAME, CSV_URL, ELECTION_DATE, ELECTION_LABEL } from './config.js';
+import { APP_NAME, CITY, CSV_URL, ELECTION_DATE, ELECTION_LABEL } from './config.js';
 import { decodeCSV, parseCSV } from './csv.js';
 import { buildEvents, dateKey, daysBetween, formatLongDate, formatStationDate, formatTimeRange, parseDay, relativeDay } from './events.js';
 import { assignTypeColors, typeColor, typeTag } from './types.js';
@@ -471,8 +471,9 @@ function wireTabs(selector, onPick) {
 }
 
 $('app-name').textContent = APP_NAME;
+$('app-city').textContent = CITY;
 $('brand-mark').innerHTML = brandMark();
-document.title = APP_NAME;
+document.title = `${APP_NAME} · ${CITY}`;
 
 wireTabs('.view-tabs [role=tab]', (tab) => {
   state.view = tab.dataset.view;
