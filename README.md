@@ -1,0 +1,87 @@
+# Agenda de Luta
+
+Site estático com o calendário de atividades do segundo turno. Para cada atividade, gera:
+
+- **Mensagem de WhatsApp** pronta para colar (com negrito, emojis e só os campos preenchidos);
+- **Panfleto em PNG** (1080 × 1350 px) para compartilhar.
+
+Sem build, sem dependências para instalar: HTML, CSS e JavaScript puro.
+
+## Editando a agenda
+
+A agenda vem da planilha do Google publicada na web (link em `CSV_URL`, no arquivo `js/config.js`): é só editar a planilha que o site se atualiza. O arquivo `data/agenda.csv` fica como modelo e cópia local, no formato brasileiro: colunas separadas por ponto e vírgula (`;`), datas no formato dia/mês/ano e acentos em UTF-8. Ele abre direto no Excel, no LibreOffice e no Google Planilhas.
+
+| coluna | obrigatória | exemplo |
+|---|---|---|
+| `Título` | sim | Panfletagem na Feira da Vila |
+| `Descrição` | não | Leve água e boné! |
+| `Tipo` | não | Panfletagem, Formação, Ato… (texto livre) |
+| `Dia` | sim | `17/10/2026`, `17/10` ou `2026-10-17` |
+| `Horário` | não | `9h`, `9h30` ou `09:30` |
+| `Local` | não | Praça Central, em frente ao coreto |
+| `Término` | não | `12h` → aparece como "9h às 12h" |
+| `Contato` | não | Ana – (11) 90000-0000 |
+| `Link` | não | link do Maps, do Instagram, inscrição etc. |
+
+Ao salvar no Excel, use **"CSV UTF-8 (delimitado por vírgulas)"** ou **"CSV (separado por vírgulas)"**: o site entende os dois, com `;` ou `,` como separador, e não importa se os cabeçalhos estão com ou sem acento, em maiúsculas ou minúsculas. Planilhas antigas com cabeçalhos em inglês (`title`, `day`…) continuam funcionando.
+
+Linhas sem título ou com data inválida são ignoradas e aparecem num aviso no topo da página.
+
+A agenda é carregada automaticamente ao abrir o site.
+
+### Usando uma planilha online
+
+Em vez do arquivo local, dá para ler direto de uma planilha pública do Google Planilhas:
+
+1. Na planilha: **Arquivo → Compartilhar → Publicar na Web**, escolha a aba e o formato **CSV (.csv)** e copie o link.
+2. Em `js/config.js`, troque o valor de `CSV_URL` por esse link.
+
+Assim, quem edita a planilha atualiza o site sem precisar publicar nada de novo (o Google pode levar alguns minutos para refletir as mudanças).
+
+## Rodando localmente
+
+O navegador não deixa ler o CSV abrindo o `index.html` direto (`file://`), então suba um servidor simples:
+
+```sh
+python3 -m http.server 8000
+```
+
+e acesse <http://localhost:8000>.
+
+## Publicando
+
+Qualquer hospedagem estática serve (GitHub Pages, Netlify, Cloudflare Pages…): é só publicar a pasta inteira. Para atualizar a agenda, troque o `data/agenda.csv` e publique de novo.
+
+## Personalizando
+
+Tudo que costuma mudar fica em `js/config.js`:
+
+- `CSV_URL`: de onde vem a agenda (arquivo local ou planilha publicada).
+- `APP_NAME`: nome que aparece no topo do site e nos panfletos.
+- `ELECTION_DATE` / `ELECTION_LABEL`: o ponto final da linha e a contagem regressiva.
+
+Outros textos:
+
+- Frase final da mensagem de WhatsApp: `CLOSING_LINE` em `js/whatsapp.js`.
+- Frase do rodapé do panfleto (quando não há contato/link): `FLYER_SLOGAN` em `js/flyer.js`.
+- Cores: variáveis no topo de `css/style.css`; cores dos tipos de atividade em `js/types.js`.
+
+## Estrutura
+
+```
+index.html
+css/style.css       estilos do site e do panfleto
+fonts/              fontes Barlow (hospedadas no próprio site)
+js/config.js        configurações (planilha, nome, data da eleição)
+js/app.js           carrega a agenda e liga a interface
+js/line.js          a linha (visão principal)
+js/month.js         a visão de mês
+js/flyer.js         panfleto e exportação PNG
+js/whatsapp.js      montador da mensagem de WhatsApp
+js/types.js         cores e etiquetas dos tipos de atividade
+js/icons.js         ícones
+js/csv.js           leitor de CSV
+js/events.js        normaliza linhas, datas e horários
+js/vendor/          html-to-image (gera o PNG)
+data/agenda.csv     a agenda
+```

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1C1C1E">
+  <title>Agenda de Luta</title>
+  <meta name="description" content="A linha de atividades até o segundo turno — mande a mensagem ou o panfleto de cada uma pelo WhatsApp.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23E4002B%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%224%22/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/barlow-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/barlow-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/vendor/html-to-image.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="sign">
+    <div class="sign-inner">
+      <a class="brand" href="./">
+        <span class="brand-bullet" aria-hidden="true"></span>
+        <span class="brand-name" id="app-name">Agenda de Luta</span>
+      </a>
+      <p class="countdown" id="countdown" hidden></p>
+    </div>
+  </header>
+  <div class="route-strip" aria-hidden="true"></div>
+
+  <div class="shell">
+    <main class="line-col" id="main">
+      <div id="notice" class="notice" role="status" hidden></div>
+
+      <section class="next" id="next" aria-label="Próxima atividade" hidden></section>
+
+      <div class="controls">
+        <div class="view-tabs" role="tablist" aria-label="Visualização">
+          <button type="button" role="tab" id="tab-line" data-view="line" aria-controls="view">Linha</button>
+          <button type="button" role="tab" id="tab-month" data-view="month" aria-controls="view">Mês</button>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filtrar por tipo"></div>
+      </div>
+
+      <div id="view" class="view" role="tabpanel" aria-live="polite">
+        <p class="placeholder">Carregando agenda…</p>
+      </div>
+    </main>
+
+    <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+
+    <aside class="bench" id="bench" aria-labelledby="bench-title" tabindex="-1">
+      <div class="bench-empty" id="bench-empty">
+        <span class="bench-empty-ring" aria-hidden="true"></span>
+        <p>Escolha uma atividade na linha para montar a mensagem e o panfleto.</p>
+      </div>
+
+      <div class="bench-body" id="bench-body" hidden>
+        <header class="bench-head">
+          <h2 id="bench-title"></h2>
+          <button type="button" class="icon-btn bench-close" id="bench-close" aria-label="Fechar"></button>
+        </header>
+        <dl class="facts" id="bench-facts"></dl>
+
+        <div class="seg" role="tablist" aria-label="Formato">
+          <button type="button" role="tab" id="seg-message" data-panel="message" aria-controls="panel-message">Mensagem</button>
+          <button type="button" role="tab" id="seg-flyer" data-panel="flyer" aria-controls="panel-flyer">Panfleto</button>
+        </div>
+
+        <section class="panel" id="panel-message" role="tabpanel" aria-labelledby="seg-message">
+          <div class="chat">
+            <div class="bubble" id="bubble"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-route" id="wa-link" target="_blank" rel="noopener"></a>
+            <button type="button" class="btn btn-line" id="copy-btn"></button>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-flyer" role="tabpanel" aria-labelledby="seg-flyer" hidden>
+          <div class="flyer-frame" id="flyer-frame">
+            <div class="flyer-scaler" id="flyer-scaler"></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-route" id="share-btn" hidden></button>
+            <button type="button" class="btn btn-line" id="download-btn"></button>
+          </div>
+          <p class="hint">Imagem 1080 × 1350, no formato do WhatsApp e do Instagram.</p>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Browsers block JS modules and the CSV when the page is opened straight from disk.
+    if (location.protocol === 'file:') {
+      var notice = document.getElementById('notice');
+      notice.dataset.kind = 'error';
+      notice.innerHTML = '<strong>O site precisa ser aberto por um servidor, não direto do arquivo.</strong> ' +
+        'Na pasta do projeto, rode <code>python3 -m http.server 8000</code> e acesse <code>http://localhost:8000</code>.';
+      notice.hidden = false;
+      document.getElementById('view').replaceChildren();
+    }
+  </script>
+</body>
+</html>
