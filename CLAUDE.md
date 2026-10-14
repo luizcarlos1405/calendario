@@ -30,6 +30,7 @@ Data flow: `app.js` fetches CSV → `csv.js` `parseCSV` (RFC 4180, BOM strip, au
 - Type colors: `assignTypeColors` (called on load with the sorted type list) gives each type a distinct `TYPE_PALETTE` entry in `calendar.js`; types beyond the palette fall back to a name hash. `typeColor` is used by chips, badges, list cards and filter dots.
 - Flyer: `renderFlyer` builds a fixed 1080×1350 DOM node styled by the `.flyer*` rules in `css/style.css`; the dialog preview shrinks it with a CSS `transform: scale()` on `#flyer-scaler` (recomputed on tab switch and resize). Export uses the global `htmlToImage` (html-to-image, loaded from jsDelivr in `index.html`) and waits for `document.fonts.ready` (Anton/Inter from Google Fonts). Title font size is picked by length (`titleSizeClass`), description truncated at 200 chars.
 - WhatsApp formatting uses `*bold*`/`_italic_` markup; lines for empty fields are omitted. `previewHtml` escapes HTML before converting markup — keep that order.
+- Offline: `sw.js` (registered at the end of `app.js` with `?csv=<CSV_URL>` so the classic worker knows the cross-origin CSV) is network-first for every same-origin GET and the CSV, refreshing the cache on each success and falling back to it only on network failure/5xx. The `SHELL` list is precached on install — add new CSS/JS/font files there. Cached CSV copies carry an `X-Cached-At` header; `load()` uses it to show the "Sem conexão" notice. No cache version bump is needed on deploy.
 
 ## Customization points
 

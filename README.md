@@ -55,6 +55,10 @@ e acesse <http://localhost:8000>.
 
 Qualquer hospedagem estática serve (GitHub Pages, Netlify, Cloudflare Pages…): é só publicar a pasta inteira. Para atualizar a agenda, troque o `data/agenda.csv` e publique de novo.
 
+## Funcionando sem internet
+
+O `sw.js` (service worker) guarda uma cópia do site e da planilha a cada visita. Com internet, o site sempre busca a versão mais nova; sem internet, abre a última cópia salva e avisa no topo da página desde quando ela é. Ao criar um arquivo novo que o site carrega (CSS, JS, fonte), acrescente-o à lista `SHELL` do `sw.js` para que ele funcione offline já na primeira visita.
+
 ## Prévia do link
 
 Quando alguém cola o link do site no WhatsApp (ou Telegram, Facebook…), aparece uma prévia com título, descrição e imagem. Ela vem das tags `og:` no `<head>` do `index.html` e da imagem `assets/og-image.png` (1200 × 630).

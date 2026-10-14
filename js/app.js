@@ -1,6 +1,6 @@
 import { APP_NAME, CITY, CSV_URL, ELECTION_DATE, ELECTION_LABEL } from './config.js';
 import { decodeCSV, parseCSV } from './csv.js';
-import { buildEvents, dateKey, daysBetween, formatLongDate, formatStationDate, formatTimeRange, parseDay, relativeDay } from './events.js';
+import { buildEvents, dateKey, daysBetween, formatLongDate, formatShortDate, formatStationDate, formatTime, formatTimeRange, parseDay, relativeDay } from './events.js';
 import { assignTypeColors, typeColor, typeTag } from './types.js';
 import { buildWhatsAppMessage, previewHtml, whatsAppShareUrl } from './whatsapp.js';
 import { FLYER_STYLES, FLYER_WIDTH, canShareFiles, downloadFlyer, flyerFilename, renderFlyer, shareFlyer } from './flyer.js';
@@ -60,6 +60,9 @@ async function load() {
     state.events = events;
     assignTypeColors(eventTypes());
     showInvalid(invalid);
+    // Set by sw.js only on its saved copy, i.e. the live spreadsheet couldn't be reached.
+    const cachedAt = res.headers.get('X-Cached-At');
+    if (cachedAt) showOffline(new Date(cachedAt));
   } catch (err) {
     console.error(err);
     showNotice(`<strong>Não foi possível carregar a agenda.</strong> Confira a conexão e recarregue a página. Se o problema continuar, avise quem cuida da planilha (<code>${escapeHtml(CSV_URL)}</code>).`, 'error');
@@ -90,6 +93,15 @@ function showInvalid(invalid) {
   if (!invalid.length) return;
   const items = invalid.map((r) => `<li>Linha ${r.line}: “${escapeHtml(r.title)}”, dia “${escapeHtml(r.day)}”</li>`).join('');
   showNotice(`<strong>${invalid.length === 1 ? '1 linha da planilha ficou de fora' : `${invalid.length} linhas da planilha ficaram de fora`}</strong> por falta de título ou data inválida. Use datas como 17/10/2026.<ul>${items}</ul>`);
+}
+
+function showOffline(savedAt) {
+  const when = isNaN(savedAt) ? '' : ` em ${formatShortDate(savedAt).toLowerCase()}, às ${formatTime(savedAt.getHours() * 60 + savedAt.getMinutes())}`;
+  const html = `<strong>Sem conexão.</strong> Mostrando a agenda salva${when}; mudanças feitas depois disso não aparecem aqui.`;
+  const notice = $('notice');
+  // Keep the invalid-rows warning if it's already up.
+  if (notice.hidden) showNotice(html);
+  else notice.lastElementChild.insertAdjacentHTML('afterbegin', `<p class="notice-offline">${html}</p>`);
 }
 
 // ---------- Shell ----------
@@ -548,3 +560,8 @@ desktop.addEventListener('change', () => {
 new ResizeObserver(scaleFlyer).observe($('flyer-frame'));
 
 if (location.protocol !== 'file:') load();
+
+// Offline support (sw.js). The CSV URL goes in the query string so the worker can cache it too.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  navigator.serviceWorker.register(`sw.js?csv=${encodeURIComponent(CSV_URL)}`).catch((err) => console.warn('Service worker:', err));
+}
