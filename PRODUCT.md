@@ -29,7 +29,7 @@ One place that shows the calendar of the movement's activities (panfletagens, fo
 
 ## Capabilities and Constraints
 
-- CSV is Brazilian-formatted: `;` separator, UTF-8 with BOM, dd/mm/aaaa dates. Columns: `Título`, `Descrição`, `Tipo` (free text), `Dia`, `Horário`, `Local`, `Término`, `Contato`, `Link`. Headers match without accents/case; `,` separator, Windows-1252 files and legacy English headers are also accepted. Empty fields are omitted from outputs.
+- CSV is Brazilian-formatted: `;` separator, UTF-8 with BOM, dd/mm/aaaa dates. Columns: `Título`, `Descrição`, `Tipo` (free text), `Dia`, `Horário`, `Local`, `Término`, `Contato`, `Link`. Optional `Visível` checkbox column (TRUE/FALSE): unchecked rows are drafts and are hidden from the site; empty or missing means visible. Headers match without accents/case; `,` separator, Windows-1252 files and legacy English headers are also accepted. Empty fields are omitted from outputs.
 - Views: month calendar and list (list default on phones), filter by type.
 - Per activity: WhatsApp message (copy, open in WhatsApp via `wa.me`) and 1080×1350 PNG flyer download.
 - Activity types are free text — any styling per type must work for unknown types.

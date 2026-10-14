@@ -22,6 +22,9 @@ A agenda vem da planilha do Google publicada na web (link em `CSV_URL`, no arqui
 | `Término` | não | `12h` → aparece como "9h às 12h" |
 | `Contato` | não | Ana – (11) 90000-0000 |
 | `Link` | não | link do Maps, do Instagram, inscrição etc. |
+| `Visível` | não | caixa de seleção: desmarcada = a atividade não aparece no site |
+
+**Coluna `Visível`:** serve para guardar na planilha atividades ainda incompletas (rascunhos) sem mostrá-las no site. No Google Planilhas, selecione a coluna e use **Inserir → Caixa de seleção**. Atenção: ao inserir, todas as caixas começam desmarcadas, então marque as atividades que já devem aparecer. Célula vazia ou planilha sem essa coluna = atividade visível.
 
 Ao salvar no Excel, use **"CSV UTF-8 (delimitado por vírgulas)"** ou **"CSV (separado por vírgulas)"**: o site entende os dois, com `;` ou `,` como separador, e não importa se os cabeçalhos estão com ou sem acento, em maiúsculas ou minúsculas. Planilhas antigas com cabeçalhos em inglês (`title`, `day`…) continuam funcionando.
 

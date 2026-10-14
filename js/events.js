@@ -13,6 +13,7 @@ const COLUMN_ALIASES = {
   local: ['local', 'lugar', 'endereco', 'location'],
   contact: ['contato', 'responsavel', 'contact'],
   link: ['link', 'url', 'site'],
+  visible: ['visivel', 'mostrar', 'publicar', 'visible'],
 };
 
 const WEEKDAYS = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
@@ -138,7 +139,16 @@ export function slugify(text) {
     .slice(0, 60);
 }
 
+// "Visível" is a checkbox column in the spreadsheet (exported as TRUE/FALSE). Only an explicit
+// "no" hides a row: an empty cell, or a sheet without the column, keeps everything visible.
+const HIDDEN_VALUES = new Set(['false', 'falso', 'nao', 'n', 'no', '0', 'off']);
+
+export function isHidden(value) {
+  return HIDDEN_VALUES.has(normalizeKey(value || ''));
+}
+
 // Returns { events, invalid } — invalid rows are those missing a title or a parseable day.
+// Rows marked as not visible are skipped silently (they are drafts, not errors).
 export function buildEvents(headers, records) {
   const col = buildColumnMap(headers);
   const get = (record, field) => (col[field] ? record[col[field]] || '' : '');
@@ -146,6 +156,8 @@ export function buildEvents(headers, records) {
   const invalid = [];
 
   records.forEach((record, index) => {
+    if (isHidden(get(record, 'visible'))) return;
+
     const title = get(record, 'title');
     const dayRaw = get(record, 'day');
     const date = parseDay(dayRaw);
