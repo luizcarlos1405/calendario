@@ -18,6 +18,7 @@ const PATHS = {
   down: '<path d="m6 9 6 6 6-6"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   alert: '<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
+  ban: '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>',
 };
 
 // The brand mark: a red calendar. Body takes currentColor; the cut-outs take --mark-ink (white by default).

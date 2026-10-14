@@ -11,6 +11,7 @@
   --route: #E4002B;          /* the line, primary actions */
   --route-hover: #C70026;
   --route-tint: #FDEBEE;     /* selected stop */
+  --route-ring: #F2B8C3;     /* ring around route-tint alerts */
   --next: #FFC20E;           /* reserved: the next station, nothing else */
   --graphite: #1C1C1E;       /* sign panels, ink */
   --ground: #EFEFEC;         /* platform floor */
@@ -148,7 +149,7 @@ code { font-size: 0.9em; background: rgba(28, 28, 30, 0.07); padding: 1px 5px; b
   font-size: 15px;
 }
 .notice .icon { margin-top: 1px; color: var(--muted); }
-.notice[data-kind="error"] { background: var(--route-tint); box-shadow: 0 0 0 1px #F2B8C3; }
+.notice[data-kind="error"] { background: var(--route-tint); box-shadow: 0 0 0 1px var(--route-ring); }
 .notice[data-kind="error"] .icon { color: var(--route); }
 .notice ul { margin: 6px 0 0; padding-left: 18px; }
 .notice-offline { margin: 0 0 8px; }
@@ -437,6 +438,35 @@ code { font-size: 0.9em; background: rgba(28, 28, 30, 0.07); padding: 1px 5px; b
 .stop.is-selected .stop-time, .stop.is-selected .stop-go { color: var(--route); }
 .station.is-past .stop-time, .station.is-past .stop-title { color: var(--muted); }
 
+/* Cancelled: a closed station. It stays on the line, greyed like travelled time, with the
+   time struck in route red and the reason right under the title. */
+.cancel-badge {
+  flex: none;
+  padding: 4px 7px;
+  border-radius: 3px;
+  background: var(--route-tint);
+  box-shadow: inset 0 0 0 1px var(--route-ring);
+  color: var(--route-hover);
+  font: 700 12px/1 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.stop-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin-top: 6px;
+}
+.stop-reason { font: 600 15px/1.3 var(--font-ui); color: var(--graphite); }
+.stop.is-cancelled .stop-time,
+.stop.is-cancelled.is-selected .stop-time {
+  color: var(--muted);
+  text-decoration: line-through 2px var(--route);
+}
+.stop.is-cancelled .stop-title,
+.stop.is-cancelled .type-tag { color: var(--muted); }
+
 
 /* The line draws itself once, along its own axis. */
 .line.is-drawing .station::before { animation: draw-route 0.7s var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
@@ -519,6 +549,9 @@ code { font-size: 0.9em; background: rgba(28, 28, 30, 0.07); padding: 1px 5px; b
 .day-dots { display: flex; flex-wrap: wrap; gap: 4px; }
 .day-dots .type-bullet { width: 9px; height: 9px; }
 .day-dots .type-bullet.is-next { box-shadow: 0 0 0 2px var(--next); }
+/* Month bullets take their line colour from `color`, so a cancelled one can go hollow. */
+.day .type-bullet { background: currentColor; }
+.day .type-bullet.is-cancelled { background: transparent; box-shadow: inset 0 0 0 2px currentColor; }
 .day-rows { display: none; }
 
 @media (min-width: 960px) {
@@ -539,6 +572,8 @@ code { font-size: 0.9em; background: rgba(28, 28, 30, 0.07); padding: 1px 5px; b
     overflow-wrap: anywhere;
   }
   .day.is-past .day-row { color: var(--muted); }
+  .day-row.is-cancelled { color: var(--muted); }
+  .day-row.is-cancelled .day-row-time { text-decoration: line-through 1.5px var(--route); }
 }
 
 .day-detail { margin-top: 24px; }
@@ -595,6 +630,22 @@ code { font-size: 0.9em; background: rgba(28, 28, 30, 0.07); padding: 1px 5px; b
 .fact dd a { color: var(--route-hover); text-underline-offset: 3px; }
 .fact.is-type, .fact.is-desc { grid-template-columns: minmax(0, 1fr); }
 .bench-desc { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.fact.is-struck dd { color: var(--muted); text-decoration: line-through 2px var(--route); }
+
+/* Service alert under the bench head, same family as the error notice. */
+.cancel-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 16px 20px 0;
+  padding: 12px 14px;
+  background: var(--route-tint);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px var(--route-ring);
+}
+.cancel-note .icon { flex: none; margin-top: 1px; color: var(--route); }
+.cancel-note p { display: grid; gap: 2px; margin: 0; font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; }
+.cancel-note strong { color: var(--route-hover); font-weight: 700; }
 
 .seg {
   display: flex;

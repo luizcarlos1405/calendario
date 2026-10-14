@@ -23,8 +23,12 @@ A agenda vem da planilha do Google publicada na web (link em `CSV_URL`, no arqui
 | `Contato` | não | Ana – (11) 90000-0000 |
 | `Link` | não | link do Maps, do Instagram, inscrição etc. |
 | `Visível` | não | caixa de seleção: desmarcada = a atividade não aparece no site |
+| `Cancelado` | não | caixa de seleção: marcada = a atividade aparece como cancelada |
+| `Motivo Cancelamento` | não | Chuva, Remarcado, ou uma frase curta |
 
 **Coluna `Visível`:** serve para guardar na planilha atividades ainda incompletas (rascunhos) sem mostrá-las no site. No Google Planilhas, selecione a coluna e use **Inserir → Caixa de seleção**. Atenção: ao inserir, todas as caixas começam desmarcadas, então marque as atividades que já devem aparecer. Célula vazia ou planilha sem essa coluna = atividade visível.
+
+**Colunas `Cancelado` e `Motivo Cancelamento`:** marque `Cancelado` (também com **Inserir → Caixa de seleção**) quando uma atividade não for mais acontecer. Ela continua no site, riscada e com a etiqueta "Cancelada" e o motivo, e deixa de ser a "próxima" atividade. A mensagem de WhatsApp e o panfleto viram um aviso de cancelamento, para avisar os grupos que já tinham sido convidados. O motivo é opcional: uma palavra ("Chuva", "Remarcado") ou uma frase curta ("Remarcado para sábado, 17/10, no mesmo horário"). Célula vazia ou planilha sem a coluna = atividade confirmada.
 
 Ao salvar no Excel, use **"CSV UTF-8 (delimitado por vírgulas)"** ou **"CSV (separado por vírgulas)"**: o site entende os dois, com `;` ou `,` como separador, e não importa se os cabeçalhos estão com ou sem acento, em maiúsculas ou minúsculas. Planilhas antigas com cabeçalhos em inglês (`title`, `day`…) continuam funcionando.
 

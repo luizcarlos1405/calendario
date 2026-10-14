@@ -1223,3 +1223,156 @@
   text-align: right;
   overflow-wrap: anywhere;
 }
+
+/* ---------- Aviso de cancelamento (every cancelled activity) ---------- */
+/* The service notice: graphite sign bar, a route-red alert band with a closed-station
+   symbol, the reason, then the activity with its day and time struck out. */
+
+.av-sign {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  height: 168px;
+  padding: 0 72px;
+  background: var(--graphite);
+  color: #fff;
+  flex: none;
+}
+.av-brand {
+  font-size: 40px;
+  flex: none;
+}
+.av-brand .fx-mark {
+  width: 60px;
+  height: 60px;
+}
+.av-type {
+  font-size: 44px;
+}
+.av-type .fx-type-dot {
+  width: 36px;
+  height: 36px;
+  box-shadow: none;
+  border: 5px solid #fff;
+}
+
+.av-band {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 52px 72px;
+  background: var(--route);
+  color: #fff;
+  flex: none;
+}
+/* A station ring with a bar through it: the station is closed. */
+.av-closed {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  flex: none;
+  border: 18px solid #fff;
+  border-radius: 50%;
+}
+.av-closed::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 104px;
+  height: 18px;
+  background: #fff;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.av-word {
+  font: 800 172px/0.86 var(--font-sign);
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+.av-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  gap: 52px;
+  padding: 56px 72px;
+}
+.av-reason {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  line-height: 1.12;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.av-reason.is-xl {
+  font-size: 76px;
+}
+.av-reason.is-lg {
+  font-size: 62px;
+}
+.av-reason.is-md {
+  font-size: 52px;
+}
+.av-reason.is-sm {
+  font-size: 44px;
+}
+.av-reason-label {
+  color: var(--route);
+}
+
+.av-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-top: 48px;
+  border-top: 3px solid var(--graphite);
+}
+/* Without a reason there is nothing to rule off. */
+.av-activity:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.av-title {
+  font-family: var(--font-sign);
+  font-weight: 800;
+  line-height: 0.98;
+  overflow-wrap: anywhere;
+}
+.av-title.is-xl {
+  font-size: 108px;
+}
+.av-title.is-lg {
+  font-size: 92px;
+}
+.av-title.is-md {
+  font-size: 76px;
+}
+.av-title.is-sm {
+  font-size: 62px;
+}
+.av-when {
+  font: 700 66px/1.05 var(--font-sign);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.av-when s {
+  text-decoration: line-through 6px var(--route);
+}
+.av-day {
+  text-transform: uppercase;
+}
+.av-place {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font: 600 42px/1.2 var(--font-ui);
+}
+.av-place .fx-pin {
+  width: 44px;
+  height: 44px;
+}

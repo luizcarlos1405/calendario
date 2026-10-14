@@ -48,7 +48,8 @@ function findEvent(id) {
 function findNext(events) {
   const todayKey = dateKey(today);
   const nowMinutes = today.getHours() * 60 + today.getMinutes();
-  return events.find((ev) => ev.dateKey > todayKey || (ev.dateKey === todayKey && (ev.time == null || ev.time + 60 >= nowMinutes))) || null;
+  // Cancelled activities stay on the line but are never the next station.
+  return events.find((ev) => !ev.cancelled && (ev.dateKey > todayKey || (ev.dateKey === todayKey && (ev.time == null || ev.time + 60 >= nowMinutes)))) || null;
 }
 
 async function load() {
@@ -305,12 +306,18 @@ function renderBench() {
   if (!ev) return;
 
   $('bench-title').textContent = ev.title;
+  renderCancelNote(ev);
 
   const facts = $('bench-facts');
   facts.replaceChildren(typeTagFact(ev));
-  facts.append(fact('calendar', formatLongDate(ev.date), 'Dia'));
+  // When it no longer happens: the day and time are struck, like the time on the line.
+  const when = (row) => {
+    if (ev.cancelled) row.classList.add('is-struck');
+    return row;
+  };
+  facts.append(when(fact('calendar', formatLongDate(ev.date), 'Dia')));
   const time = formatTimeRange(ev);
-  if (time) facts.append(fact('clock', time, 'Horário'));
+  if (time) facts.append(when(fact('clock', time, 'Horário')));
   if (ev.local) facts.append(fact('pin', ev.local, 'Local'));
   if (ev.contact) facts.append(fact('user', ev.contact, 'Contato'));
   if (ev.link) {
@@ -336,9 +343,18 @@ function renderBench() {
   const message = buildWhatsAppMessage(ev);
   $('bubble').innerHTML = previewHtml(message);
   $('wa-link').href = whatsAppShareUrl(message);
+  setButton($('wa-link'), 'message', ev.cancelled ? 'Avisar no WhatsApp' : 'Enviar no WhatsApp');
 
   renderFlyerPreview(ev);
   showPanel(activePanel);
+}
+
+// The service alert at the top of the bench: cancelled, and why.
+function renderCancelNote(ev) {
+  const note = $('bench-cancel');
+  note.hidden = !ev.cancelled;
+  if (!ev.cancelled) return;
+  note.innerHTML = `${icon('ban')}<p><strong>Atividade cancelada</strong>${ev.cancelReason ? `<span>Motivo: ${escapeHtml(ev.cancelReason)}</span>` : ''}</p>`;
 }
 
 // ---------- Flyer style picker ----------
@@ -355,6 +371,11 @@ try {
 function renderFlyerPreview(ev = findEvent(state.selectedId)) {
   if (!ev) return;
   $('flyer-scaler').replaceChildren(renderFlyer(ev, flyerStyle));
+  // A cancelled activity always gets the notice layout, so there is no style to pick.
+  $('style-picker').hidden = ev.cancelled;
+  $('flyer-hint').textContent = ev.cancelled
+    ? 'Aviso de cancelamento, 1080 × 1350, no formato do WhatsApp e do Instagram.'
+    : 'Imagem 1080 × 1350, no formato do WhatsApp e do Instagram.';
   const index = FLYER_STYLES.findIndex((s) => s.id === flyerStyle);
   $('style-select').value = flyerStyle;
   $('style-count').textContent = `${index + 1}/${FLYER_STYLES.length}`;

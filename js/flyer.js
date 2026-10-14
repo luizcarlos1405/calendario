@@ -14,6 +14,7 @@ export const FLYER_SLOGAN = 'Bora virar voto!';
 
 // Keeps flyers readable in a WhatsApp thumbnail.
 const MAX_DESCRIPTION = 110;
+const MAX_REASON = 90;
 
 const election = parseDay(ELECTION_DATE);
 
@@ -82,6 +83,7 @@ function facts(event) {
     desc: truncate(event.description, MAX_DESCRIPTION),
     contact: event.contact,
     link: event.link,
+    reason: truncate(event.cancelReason, MAX_REASON),
     toElection: election ? daysBetween(d, election) : null,
     electionDate: election ? `${String(election.getDate()).padStart(2, '0')}/${String(election.getMonth() + 1).padStart(2, '0')}` : '',
   };
@@ -302,13 +304,39 @@ export const FLYER_STYLES = [
   { id: 'lambe', name: 'Lambe-lambe', render: lambe },
 ];
 
+// The service notice for a cancelled activity. Not one of the ten styles: every cancelled
+// activity gets this layout, whatever style is picked, so the notice always reads the same.
+// A graphite sign bar, then a route-red alert band with a closed-station symbol, the reason,
+// and the activity itself with its day and time struck out.
+function aviso(f) {
+  const when = h('s', null, h('span', 'av-day', f.station), f.time && ` · ${f.time}`);
+  return [
+    h('div', 'av-sign', brand('av-brand'), typeMark(f, 'av-type')),
+    h('div', 'av-band', h('span', 'av-closed'), h('div', 'av-word', 'Cancelada')),
+    h('div', 'av-body',
+      f.reason && h('p', `av-reason ${fit(f.reason, [18, 40, 64])}`, h('span', 'av-reason-label', 'Motivo: '), f.reason),
+      h('div', 'av-activity',
+        h('h1', `av-title ${fit(f.title)}`, f.title),
+        h('div', 'av-when', when),
+        f.local && h('div', 'av-place', pin(), h('span', null, f.local)),
+      ),
+    ),
+    foot(f, 'fx-foot av-foot'),
+  ];
+}
+
+export const NOTICE_STYLE = { id: 'aviso', name: 'Aviso de cancelamento', render: aviso };
+
+const styleFor = (event, styleId) =>
+  event.cancelled ? NOTICE_STYLE : FLYER_STYLES.find((s) => s.id === styleId) || FLYER_STYLES[0];
+
 export function renderFlyer(event, styleId = FLYER_STYLES[0].id) {
-  const style = FLYER_STYLES.find((s) => s.id === styleId) || FLYER_STYLES[0];
+  const style = styleFor(event, styleId);
   return h('div', `fl fl--${style.id}`, style.render(facts(event)));
 }
 
 export function flyerFilename(event, styleId) {
-  const parts = [event.dateKey, slugify(event.type || ''), slugify(event.title), styleId].filter(Boolean);
+  const parts = [event.dateKey, slugify(event.type || ''), slugify(event.title), event.cancelled ? 'cancelada' : styleId].filter(Boolean);
   return `${parts.join('-')}.png`;
 }
 

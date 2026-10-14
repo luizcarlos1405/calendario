@@ -82,6 +82,7 @@
           <h2 id="bench-title"></h2>
           <button type="button" class="icon-btn bench-close" id="bench-close" aria-label="Fechar"></button>
         </header>
+        <div class="cancel-note" id="bench-cancel" hidden></div>
         <dl class="facts" id="bench-facts"></dl>
 
         <div class="seg" role="tablist" aria-label="Formato">
@@ -100,7 +101,7 @@
         </section>
 
         <section class="panel" id="panel-flyer" role="tabpanel" aria-labelledby="seg-flyer" hidden>
-          <div class="style-picker">
+          <div class="style-picker" id="style-picker">
             <button type="button" class="icon-btn" id="style-prev" aria-label="Estilo anterior"></button>
             <div class="style-select">
               <label class="sr-only" for="style-select">Estilo do panfleto</label>
@@ -116,7 +117,7 @@
             <button type="button" class="btn btn-route" id="share-btn" hidden></button>
             <button type="button" class="btn btn-line" id="download-btn"></button>
           </div>
-          <p class="hint">Imagem 1080 × 1350, no formato do WhatsApp e do Instagram.</p>
+          <p class="hint" id="flyer-hint">Imagem 1080 × 1350, no formato do WhatsApp e do Instagram.</p>
         </section>
       </div>
     </aside>

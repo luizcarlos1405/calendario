@@ -10,6 +10,12 @@ export const CLOSING_LINE = '✊ Bora virar voto!';
 export function buildWhatsAppMessage(event) {
   const blocks = [];
 
+  // A cancelled activity becomes a notice to the groups that were already invited:
+  // the cancellation leads, and the description (what was planned) is left out.
+  if (event.cancelled) {
+    blocks.push(['❌ *ATIVIDADE CANCELADA*', event.cancelReason && `_Motivo: ${event.cancelReason}_`].filter(Boolean));
+  }
+
   // The type (when there is one) and the city head every message, so it travels with its context.
   blocks.push([event.type ? `🚩 *${event.type.toUpperCase()}* · ${CITY}` : `🚩 ${CITY}`]);
 
@@ -21,7 +27,7 @@ export function buildWhatsAppMessage(event) {
   if (event.local) when.push(`📍 ${event.local}`);
   blocks.push(when);
 
-  if (event.description) blocks.push([event.description]);
+  if (event.description && !event.cancelled) blocks.push([event.description]);
 
   const extra = [];
   if (event.contact) extra.push(`📞 Fala com: ${event.contact}`);

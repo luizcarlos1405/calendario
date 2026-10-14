@@ -14,6 +14,8 @@ const COLUMN_ALIASES = {
   contact: ['contato', 'responsavel', 'contact'],
   link: ['link', 'url', 'site'],
   visible: ['visivel', 'mostrar', 'publicar', 'visible'],
+  cancelled: ['cancelado', 'cancelada', 'cancelled', 'canceled'],
+  cancelReason: ['motivo_cancelamento', 'motivo_do_cancelamento', 'motivo_de_cancelamento', 'motivo', 'cancel_reason'],
 };
 
 const WEEKDAYS = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
@@ -147,6 +149,13 @@ export function isHidden(value) {
   return HIDDEN_VALUES.has(normalizeKey(value || ''));
 }
 
+// "Cancelado" is also a checkbox column. Here only an explicit "yes" counts: empty means it goes ahead.
+const CHECKED_VALUES = new Set(['true', 'verdadeiro', 'sim', 's', 'yes', 'y', '1', 'x', 'on']);
+
+export function isChecked(value) {
+  return CHECKED_VALUES.has(normalizeKey(value || ''));
+}
+
 // Returns { events, invalid } — invalid rows are those missing a title or a parseable day.
 // Rows marked as not visible are skipped silently (they are drafts, not errors).
 export function buildEvents(headers, records) {
@@ -185,6 +194,8 @@ export function buildEvents(headers, records) {
       local: get(record, 'local'),
       contact: get(record, 'contact'),
       link: get(record, 'link'),
+      cancelled: isChecked(get(record, 'cancelled')),
+      cancelReason: get(record, 'cancelReason').trim(),
     });
   });
 

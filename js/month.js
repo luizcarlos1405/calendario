@@ -60,7 +60,9 @@ export function renderMonth(container, { year, month, events, today, election, e
     if (key === selectedDay) cell.classList.add('is-selected');
     if (dayEvents.length) cell.classList.add('has-events');
     cell.setAttribute('aria-pressed', String(key === selectedDay));
-    cell.setAttribute('aria-label', `${formatLongDate(date)}: ${dayEvents.length ? `${dayEvents.length} atividade(s)` : 'sem atividades'}`);
+    const cancelled = dayEvents.filter((ev) => ev.cancelled).length;
+    const count = dayEvents.length ? `${dayEvents.length} atividade(s)${cancelled ? `, ${cancelled} cancelada(s)` : ''}` : 'sem atividades';
+    cell.setAttribute('aria-label', `${formatLongDate(date)}: ${count}`);
 
     cell.append(el('span', 'day-num', String(date.getDate())));
     if (key === electionKey) cell.append(el('span', 'day-election', 'Eleição'));
@@ -69,14 +71,15 @@ export function renderMonth(container, { year, month, events, today, election, e
       const dots = el('span', 'day-dots');
       const rows = el('span', 'day-rows');
       for (const ev of dayEvents) {
-        const dot = el('span', 'type-bullet');
-        dot.style.background = typeColor(ev.type);
+        // Cancelled activities keep their line colour as a hollow bullet.
+        const dot = el('span', `type-bullet${ev.cancelled ? ' is-cancelled' : ''}`);
+        dot.style.color = typeColor(ev.type);
         if (ev.id === nextId) dot.classList.add('is-next');
         dots.append(dot);
 
-        const row = el('span', 'day-row');
-        const bullet = el('span', 'type-bullet');
-        bullet.style.background = typeColor(ev.type);
+        const row = el('span', `day-row${ev.cancelled ? ' is-cancelled' : ''}`);
+        const bullet = el('span', `type-bullet${ev.cancelled ? ' is-cancelled' : ''}`);
+        bullet.style.color = typeColor(ev.type);
         const time = ev.time != null ? formatTime(ev.time) : ev.timeRaw;
         row.append(bullet, el('span', 'day-row-time', time || ''), el('span', 'day-row-title', ev.title));
         rows.append(row);

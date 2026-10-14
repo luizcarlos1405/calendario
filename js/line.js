@@ -29,6 +29,14 @@ export function renderStops(events, { selectedId, onSelect }) {
 
     const body = el('span', 'stop-body');
     body.append(el('span', 'stop-title', ev.title));
+    // A closed station: struck time, muted title, the reason right under the title.
+    if (ev.cancelled) {
+      stop.classList.add('is-cancelled');
+      const status = el('span', 'stop-status');
+      status.append(el('span', 'cancel-badge', 'Cancelada'));
+      if (ev.cancelReason) status.append(el('span', 'stop-reason', ev.cancelReason));
+      body.append(status);
+    }
     const sub = el('span', 'stop-sub');
     sub.append(typeTag(ev.type));
     if (ev.local) sub.append(el('span', 'stop-local', ev.local));

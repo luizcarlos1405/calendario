@@ -18,7 +18,7 @@ Deploy = publish the whole folder to any static host.
 
 ## Data
 
-The agenda lives in `data/agenda.csv`, loaded from `CSV_URL` in `js/app.js` (can be swapped for a published Google Sheets CSV link). Columns: `title`, `day` (required); `description`, `type`, `time`, `end_time`, `local`, `contact`, `link` (optional). `type` is free text. Headers are matched loosely: accents/case/spaces are normalized and pt-BR aliases accepted (`COLUMN_ALIASES` in `js/events.js`). Rows missing a title or a valid date are dropped and reported in a notice at the top of the page, using their spreadsheet line number (header = line 1).
+The agenda lives in `data/agenda.csv`, loaded from `CSV_URL` in `js/app.js` (can be swapped for a published Google Sheets CSV link). Columns: `title`, `day` (required); `description`, `type`, `time`, `end_time`, `local`, `contact`, `link`, `visible`, `cancelled`, `cancel_reason` (optional; pt-BR headers `Visível`, `Cancelado`, `Motivo Cancelamento`). `type` is free text. `Visível` unchecked hides a row (`isHidden`); `Cancelado` checked sets `event.cancelled` (`isChecked`) with `event.cancelReason`: cancelled events are skipped by `findNext`, drawn as closed stations (`.is-cancelled`), and get a notice message (`buildWhatsAppMessage`) and the `aviso` flyer (`NOTICE_STYLE` in `flyer.js`, forced regardless of the picked style). Headers are matched loosely: accents/case/spaces are normalized and pt-BR aliases accepted (`COLUMN_ALIASES` in `js/events.js`). Rows missing a title or a valid date are dropped and reported in a notice at the top of the page, using their spreadsheet line number (header = line 1).
 
 ## Architecture
 

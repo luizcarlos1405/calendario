@@ -5,6 +5,7 @@ colors:
   route: "#E4002B"
   route-hover: "#C70026"
   route-tint: "#FDEBEE"
+  route-ring: "#F2B8C3"
   next: "#FFC20E"
   graphite: "#1C1C1E"
   ground: "#EFEFEC"
@@ -191,6 +192,11 @@ components:
   stop-selected:
     backgroundColor: "{colors.route-tint}"
     textColor: "{colors.route}"
+  cancel-badge:
+    backgroundColor: "{colors.route-tint}"
+    textColor: "{colors.route-hover}"
+    typography: "{typography.label-caps}"
+    padding: "4px 7px"
   brand-mark:
     textColor: "{colors.route}"
     size: "34px"
@@ -235,7 +241,8 @@ A signage palette: graphite and platform grey carry the structure, route red car
 ### Primary
 - **Route Red** (`route`): the line itself, the route strip under the sign bar, the bench head's bottom border, primary buttons ("Enviar no WhatsApp"), the selected view tab underline, the election terminal and badge, the brand mark's body, flyer times and slogan, and the full ground of the Vermelho total and Bilhete de ida flyers. Red stays dominant by being the one continuous line on screen, not by filling surfaces.
 - **Route Red, Pressed** (`route-hover`): hover on primary buttons, and links inside the bench facts, where it reads as text on white.
-- **Route Tint** (`route-tint`): background of the selected stop and of error notices.
+- **Route Tint** (`route-tint`): background of the selected stop, of error notices, of the "Cancelada" badge and of the bench's cancellation alert.
+- **Route Ring** (`route-ring`): the 1px ring around route-tint alerts (error notice, cancellation alert, "Cancelada" badge), where the seam would disappear.
 
 ### Secondary
 - **Platform Yellow** (`next`): the next-station plate on the board, the next station's ring on the line, the ring around the next activity's dot in the month grid, and the focus outline on dark surfaces.
@@ -258,6 +265,8 @@ A signage palette: graphite and platform grey carry the structure, route red car
 **The Two Reserved Colours Rule.** Route red and platform yellow never appear among the activity-type colours. Types ride the connection-line palette only.
 
 **The Travelled Line Rule.** Time already behind today turns the line and its rings to `travelled` grey, and past text to muted ink. Never hide past stations; grey them.
+
+**The Closed Station Rule.** A cancelled activity is never hidden and never the next station. Its time is struck with a route-red line, its title and type tag go to muted ink, and a "Cancelada" badge with the reason sits right under the title; in the month grid its type bullet goes hollow (a 2px ring in the type colour) and only its time is struck. The day and time in the bench are struck the same way, under a route-tint alert naming the reason.
 
 **The Flyer Palette Rule.** Flyers use route red, graphite, the connection lines and white or pale neutrals, nothing else. Platform yellow never appears on a flyer: there is no "next" in a single activity. The few material neutrals a layout needs (tile white and grout on Azulejo, the flap-tile grey on Partidas, pasted-paper white on Lambe-lambe) belong to the object it depicts.
 
@@ -393,6 +402,8 @@ Ten 1080 × 1350 PNG layouts, listed in picker order. Every layout shares these 
 | 8 | Mapa da rede | The network map, converging on this activity | White | Lines bending at 45° (the route at 34px, the type's line at 22px, others at 18px, white stations outlined in graphite) into a pill interchange with a 12px graphite border holding the date and time | Hub date 96; time 64 red; title 112 / 94 / 78 / 64; place 40 |
 | 9 | Azulejo da estação | The station tile wall | Tile white with grey grout on a 108px grid | A route-red enamel frieze with 14px graphite trim carrying the uppercase white title; a graphite type plate; a white enamel info panel | Title 124 / 102 / 84 / 68; date 96; time 72 red; place 40; description 30 |
 | 10 | Lambe-lambe | Pasted strips of wood type | Pale pasted-paper white | Strips tilted between -1.5 and 0.6 degrees with a soft paste shadow: a red type strip, a white title strip, a graphite when strip, a red-outlined place strip, and the slogan run in red off the right edge | Type strip 200 / 160 / 120 / 96; title 150 / 124 / 98 / 78; when 112; place 66; slogan run 110 |
+
+**Aviso de cancelamento.** Not one of the ten: every cancelled activity gets this service notice, whatever style is picked, and the style picker is hidden. A 168px graphite sign bar (brand and type mark), then a full-bleed route-red alert band with a closed-station symbol (a 136px white ring with an 18px border and a bar through it at 45°) beside "CANCELADA" in condensed 800 at 172px, white. On platform grey below: the reason ("Motivo:" in route red, Barlow 700 at 76 / 62 / 52 / 44 by length), a 3px graphite rule (dropped when there is no reason), the title (condensed 800, 108 / 92 / 76 / 62), the day and time struck with a 6px route-red line in muted ink (66px, day uppercase, times as written, e.g. "11h às 12h"), and the place with a pin (Barlow 600 42px); then the shared graphite footer. The PNG is named `…-cancelada.png`.
 
 The Azulejo grid is a drawing of a real station tile wall (3px grout lines on both axes), a material the metro world owns; it is not a decorative UI grid and does not license grid backgrounds elsewhere.
 
