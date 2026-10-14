@@ -123,6 +123,12 @@
     </aside>
   </div>
 
+  <!-- Phones in landscape: browsers (and iOS even when installed) ignore the manifest's portrait lock, so cover the page instead. -->
+  <div class="rotate-notice" role="alert">
+    <svg class="rotate-notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+    <p>Gire o celular para a vertical para usar o calendário.</p>
+  </div>
+
   <script>
     // Browsers block JS modules and the CSV when the page is opened straight from disk.
     if (location.protocol === 'file:') {
