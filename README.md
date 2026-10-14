@@ -59,6 +59,19 @@ Qualquer hospedagem estática serve (GitHub Pages, Netlify, Cloudflare Pages…)
 
 O `sw.js` (service worker) guarda uma cópia do site e da planilha a cada visita. Com internet, o site sempre busca a versão mais nova; sem internet, abre a última cópia salva e avisa no topo da página desde quando ela é. Ao criar um arquivo novo que o site carrega (CSS, JS, fonte), acrescente-o à lista `SHELL` do `sw.js` para que ele funcione offline já na primeira visita.
 
+## Instalando como app
+
+O site pode ser instalado na tela inicial do celular ou no computador, abrindo em janela própria e funcionando sem internet:
+
+- **Android (Chrome):** menu ⋮ → **Instalar app** (ou **Adicionar à tela inicial**).
+- **iPhone (Safari):** botão Compartilhar → **Adicionar à Tela de Início**.
+- **Computador (Chrome/Edge):** ícone de instalar na barra de endereço.
+
+O que faz isso funcionar: `manifest.webmanifest` (nome, cores, ícones e capturas de tela mostradas na janela de instalação), as tags no `<head>` do `index.html` e o `sw.js`. A instalação só aparece com o site em HTTPS (ou em `localhost`).
+
+- **Ícones** (`assets/icons/`): vêm de `assets/icon.html`. Para refazer, sirva a pasta e tire um print da página no tamanho de cada ícone: `icon.html#any` com fundo transparente para `icon-192.png`/`icon-512.png`, e `icon.html#maskable` para `icon-maskable-*.png` e `apple-touch-icon.png` (180 × 180).
+- **Capturas** (`assets/screenshots/`): prints do próprio site, 390 × 844 em densidade 2 (celular) e 1440 × 900 (computador). Se mudar o tamanho, atualize `sizes` no manifesto.
+
 ## Prévia do link
 
 Quando alguém cola o link do site no WhatsApp (ou Telegram, Facebook…), aparece uma prévia com título, descrição e imagem. Ela vem das tags `og:` no `<head>` do `index.html` e da imagem `assets/og-image.png` (1200 × 630).

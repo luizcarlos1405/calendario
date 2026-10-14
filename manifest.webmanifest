@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "Calendário de Luta · Dourados/MS",
+  "short_name": "Calendário",
+  "description": "As atividades em Dourados/MS até o 2º turno, com mensagem e panfleto prontos para o WhatsApp.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EFEFEC",
+  "theme_color": "#1C1C1E",
+  "categories": ["social", "productivity"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "assets/screenshots/mobile-line.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "A linha de atividades até a eleição" },
+    { "src": "assets/screenshots/mobile-message.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Mensagem pronta para mandar no WhatsApp" },
+    { "src": "assets/screenshots/mobile-flyer.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Panfleto da atividade em imagem" },
+    { "src": "assets/screenshots/desktop.png", "sizes": "1440x900", "type": "image/png", "form_factor": "wide", "label": "Linha de atividades com mensagem e panfleto lado a lado" }
+  ]
+}

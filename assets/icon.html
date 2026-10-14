@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Source of the app icons in assets/icons/ (installed app, home screen).
+     Rendered at the viewport size: #any = rounded tile on transparent, #maskable = full bleed
+     with the mark inside the safe zone (Android crops it to a circle or squircle). See README, "Instalando como app". -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ícone do app</title>
+<style>
+  * { margin: 0; padding: 0; }
+  html, body { width: 100vw; height: 100vh; overflow: hidden; background: transparent; }
+  .tile { position: relative; display: grid; place-items: center; width: 100vw; height: 100vh; overflow: hidden; background: #1C1C1E; }
+  .mark { width: 62%; height: 62%; color: #E4002B; }
+  /* The route strip from the site header, along the bottom edge. */
+  .tile::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 7%; background: #E4002B; }
+  .any .tile { border-radius: 20%; }
+  /* Safe zone is the centred circle of 80% diameter; the strip would be cropped away. */
+  .maskable .mark { width: 56%; height: 56%; }
+  .maskable .tile::after { display: none; }
+</style>
+</head>
+<body>
+  <div class="tile">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="8" y="2" width="4" height="8" rx="2" fill="currentColor"/>
+      <rect x="20" y="2" width="4" height="8" rx="2" fill="currentColor"/>
+      <rect x="3" y="6" width="26" height="23" rx="4" fill="currentColor"/>
+      <g fill="#fff">
+        <rect x="3" y="12" width="26" height="2.5"/>
+        <rect x="7.5" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="17.5" width="4.5" height="3.5" rx="1"/><rect x="20" y="17.5" width="4.5" height="3.5" rx="1"/>
+        <rect x="7.5" y="23" width="4.5" height="3.5" rx="1"/><rect x="13.75" y="23" width="4.5" height="3.5" rx="1"/>
+      </g>
+    </svg>
+  </div>
+  <script>document.body.className = location.hash.slice(1) || 'any';</script>
+</body>
+</html>
